@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            String connURL = "http://192.168.0.128/loginGaza.v1.0.php";
+            String connURL = "http://192.168.0.128/loginGaza.v1.1.php";
             String param = "id=" + sID + "&pw=" + sPW + "";
+
             Log.e("POST", param);
 
             try {
@@ -150,15 +152,14 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute (Void avoid){
                 super.onPostExecute(avoid);
 
-                Dialog alertBuilder;
-                if(data.equals("1"))
+                if(data.equals("0"))
                 {
                     Log.e("RESULT","성공적으로 처리되었습니다!");
                     Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_LONG).show();
-
-
+                    Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                    startActivity(intent);
                 }
-                else if(data.equals("0"))
+                else if(data.equals("1"))
                 {
                     Log.e("RESULT","비밀번호가 일치하지 않습니다.");
                     Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
