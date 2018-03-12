@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 if(data.equals("0"))
                 {
                     Log.e("RESULT","성공적으로 처리되었습니다!");
-                    Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, sID+"님 환영합니다!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(MainActivity.this, EditActivity.class);
                     startActivity(intent);
                 }
