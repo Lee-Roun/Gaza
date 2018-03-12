@@ -48,14 +48,16 @@ public class MainActivity extends AppCompatActivity {
                 switch (view.getId()) {
                     case R.id.buttonLgn:
                         Login(view);
-
-                        //Toast.makeText(MainActivity.this, "로그인 버튼", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                        startActivity(intent);
+                        ID.setText("");
+                        PW.setText("");
                         break;
                     case R.id.buttonFind:
 
                         break;
                     case R.id.buttonJoin:
-                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
+                        intent = new Intent(MainActivity.this, SubActivity.class);
                         startActivity(intent);
                         break;
 
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            String connURL = "http://192.168.0.128/loginGaza.v1.1.php";
+            String connURL = "http://192.168.0.128/loginGaza.v2.0.php";
             String param = "id=" + sID + "&pw=" + sPW + "";
 
             Log.e("POST", param);
@@ -148,32 +150,26 @@ public class MainActivity extends AppCompatActivity {
             return null;
 
         }
-            @Override
-            protected void onPostExecute (Void avoid){
-                super.onPostExecute(avoid);
 
-                if(data.equals("0"))
-                {
-                    Log.e("RESULT","성공적으로 처리되었습니다!");
-                    Toast.makeText(MainActivity.this, sID+"님 환영합니다!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                    startActivity(intent);
-                }
-                else if(data.equals("1"))
-                {
-                    Log.e("RESULT","비밀번호가 일치하지 않습니다.");
-                    Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Log.e("RESULT","에러 발생! ERRCODE = " + data);
-                    Toast.makeText(MainActivity.this, "등록중 에러", Toast.LENGTH_LONG).show();
+        @Override
+        protected void onPostExecute(Void avoid) {
+            super.onPostExecute(avoid);
 
-                }
+            if (data.equals("0")) {
+                Log.e("RESULT", "성공적으로 처리되었습니다!");
+                Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
 
-
+            } else if (data.equals("1")) {
+                Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
+                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+            } else {
+                Log.e("RESULT", "에러 발생! ERRCODE = " + data);
+                Toast.makeText(MainActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
 
             }
+
+
+        }
 
     }
 

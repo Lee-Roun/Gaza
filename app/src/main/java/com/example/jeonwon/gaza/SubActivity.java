@@ -68,7 +68,7 @@ public class SubActivity extends AppCompatActivity {
                         String email = mEditTextEmail.getText().toString();
                         String gender = mEditTextGender.getText().toString();
 
-                        if(pw.equals(pwcheck)){
+                        if(pw.equals(pwcheck)&&!pw.equals("")){
                             InsertData task = new InsertData();
                             task.execute(id, pw, name, age, phone, email, gender);
 
@@ -82,6 +82,8 @@ public class SubActivity extends AppCompatActivity {
                             mEditTextGender.setText("");
                         }
                         else{
+                            Toast.makeText(SubActivity.this, "비밀번호가 서로 다릅니다", Toast.LENGTH_LONG);
+
                             mEditTextPw.setText("");
                             mEditTextPwChk.setText("");
                         }
@@ -116,7 +118,8 @@ public class SubActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
             Log.d(TAG, "POST response  - " + result);
-            Toast.makeText(SubActivity.this, result + "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SubActivity.this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         @Override
@@ -130,7 +133,7 @@ public class SubActivity extends AppCompatActivity {
             String email = (String)params[5];
             String gender = (String)params[6];
 
-            String serverURL = "http://192.168.0.128/insertGaza.v1.0.php";
+            String serverURL = "http://192.168.0.128/insertGaza.v2.0.php";
             String postParameters = "id=" + id + "&pw=" + pw + "&name=" + name + "&age=" + age + "&phone=" + phone + "&email=" + email + "&gender=" + gender;
 
 
