@@ -7,6 +7,7 @@
     android:background="#BBDED6">
 
 
+
     <SearchView
         android:id="@+id/searchBar"
         android:layout_width="0dp"
@@ -27,7 +28,8 @@
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:tabIndicatorColor="#D76A31"
         app:tabSelectedTextColor="#D76A31"
-        app:tabTextColor="#FFFFFF">
+        app:tabTextColor="#FFFFFF"
+        app:tabTextAppearance="@style/TabLayoutTextStyle">
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabMyPlan"
