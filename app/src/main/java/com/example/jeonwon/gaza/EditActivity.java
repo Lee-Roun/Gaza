@@ -21,7 +21,7 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tapmain);
 
-        tabLayout = (TabLayout)findViewById(R.id.tabHost);
+        tabLayout = (TabLayout)findViewById(R.id.tab);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
