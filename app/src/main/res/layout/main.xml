@@ -9,14 +9,14 @@
 
 
     <SearchView
-        android:layout_width="368dp"
+        android:id="@+id/searchBar"
+        android:layout_width="305dp"
         android:layout_height="23dp"
         android:layout_marginTop="4dp"
-        android:id="@+id/searchBar"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tabHost"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tabHost"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TabHost
         android:id="@+id/tabHost"
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/my"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -52,7 +52,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab2"
+                    android:id="@+id/shared"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -60,7 +60,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab3"
+                    android:id="@+id/manage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
