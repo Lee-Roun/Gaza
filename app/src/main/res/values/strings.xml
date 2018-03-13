@@ -13,4 +13,7 @@
     <string name="Send">가입</string>
     <string name="Cancel">취소</string>
     <string name="Check">PW CHECK</string>
+    <string name="MyPlan">내여행</string>
+    <string name="SharedPlan">공유</string>
+    <string name="Manage">설정</string>
 </resources>
