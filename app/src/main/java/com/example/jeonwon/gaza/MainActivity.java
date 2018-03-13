@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,39 +27,41 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    EditText ID, PW;
-    String sID, sPW;
+    private EditText ID, PW;
+    private TextView Find;
+    private Button btnLogin, btnJoin, btnFind;
 
-    Button btnLogin, btnJoin, btnFind;
+    private String sID, sPW;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.start);
 
-        ID = (EditText) findViewById(R.id.editTextLgnId);
-        PW = (EditText) findViewById(R.id.editTextLgnPw);
+        ID = (EditText) findViewById(R.id.edtID);
+        PW = (EditText) findViewById(R.id.edtPW);
 
-        btnLogin = (Button) findViewById(R.id.buttonLgn);
-        btnJoin = (Button) findViewById(R.id.buttonJoin);
-        btnFind = (Button) findViewById(R.id.buttonFind);
+        btnLogin = (Button) findViewById(R.id.login);
+        btnJoin = (Button) findViewById(R.id.signUp);
+        Find = (TextView) findViewById(R.id.findIDorPW);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 switch (view.getId()) {
-                    case R.id.buttonLgn:
+                    case R.id.login:
                         Login(view);
                         Intent intent = new Intent(MainActivity.this, EditActivity.class);
                         startActivity(intent);
                         ID.setText("");
                         PW.setText("");
                         break;
-                    case R.id.buttonFind:
+                    case R.id.findIDorPW:
 
                         break;
-                    case R.id.buttonJoin:
+                    case R.id.signUp:
                         intent = new Intent(MainActivity.this, SubActivity.class);
                         startActivity(intent);
                         break;
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         btnJoin.setOnClickListener(listener);
-        btnFind.setOnClickListener(listener);
+        //btnFind.setOnClickListener(listener);
         btnLogin.setOnClickListener(listener);
 
 

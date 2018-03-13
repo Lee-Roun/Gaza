@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -32,22 +34,32 @@ public class SubActivity extends AppCompatActivity {
     private EditText mEditTextPhone;
     private EditText mEditTextEmail;
     private EditText mEditTextGender;
+    private RadioButton mRadioBtnMan, mRadioBtnWoman;
+    private RadioGroup mRadioGrp;
+    private Button btnSend;
+
+    String name, id, pw, pwcheck, age, phone, gender;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.join);
+        setContentView(R.layout.signup);
 
-        Button btnCancel = (Button)findViewById(R.id.buttonCancel);
-        Button btnSend = (Button)findViewById(R.id.buttonSend);
+        //Button btnCancel = (Button)findViewById(R.id.buttonCancel);
+         btnSend = (Button)findViewById(R.id.signUpFinish);
 
-        mEditTextName = (EditText)findViewById(R.id.editTextName);
-        mEditTextId = (EditText)findViewById(R.id.editTextId);
-        mEditTextPw = (EditText)findViewById(R.id.editTextPw);
-        mEditTextPwChk = (EditText)findViewById(R.id.editTextPWChk);
-        mEditTextAge = (EditText)findViewById(R.id.editTextAge);
-        mEditTextPhone = (EditText)findViewById(R.id.editTextPhone);
-        mEditTextEmail = (EditText)findViewById(R.id.editTextEmail);
-        mEditTextGender = (EditText)findViewById(R.id.editTextGender);
+        mEditTextName = (EditText)findViewById(R.id.edtName);
+        mEditTextId = (EditText)findViewById(R.id.edtSignUpID);
+        mEditTextPw = (EditText)findViewById(R.id.edtSignUpPW);
+        mEditTextPwChk = (EditText)findViewById(R.id.edtCheckPW);
+        mEditTextAge = (EditText)findViewById(R.id.edtBirthDay);
+        mEditTextPhone = (EditText)findViewById(R.id.edtPhone);
+        //mEditTextEmail = (EditText)findViewById(R.id.editTextEmail);
+        //mEditTextGender = (EditText)findViewById(R.id.edtg);
+        mRadioBtnMan = (RadioButton)findViewById(R.id.radioBtnMan);
+        mRadioBtnWoman = (RadioButton)findViewById(R.id.radioBtnWoman);
+        mRadioGrp = (RadioGroup)findViewById(R.id.genderBtnGroup);
+        mRadioBtnMan.setChecked(true);
+        gender="Man";
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -58,28 +70,30 @@ public class SubActivity extends AppCompatActivity {
 
                         finish();
                         break;
-                    case R.id.buttonSend:
-                        String name = mEditTextName.getText().toString();
-                        String id = mEditTextId.getText().toString();
-                        String pw = mEditTextPw.getText().toString();
-                        String pwcheck = mEditTextPwChk.getText().toString();
-                        String age = mEditTextAge.getText().toString();
-                        String phone = mEditTextPhone.getText().toString();
-                        String email = mEditTextEmail.getText().toString();
-                        String gender = mEditTextGender.getText().toString();
+                    case R.id.signUpFinish:
+                        name = mEditTextName.getText().toString();
+                        id = mEditTextId.getText().toString();
+                        pw = mEditTextPw.getText().toString();
+                        pwcheck = mEditTextPwChk.getText().toString();
+                        age = mEditTextAge.getText().toString();
+                        phone = mEditTextPhone.getText().toString();
 
+                        //String email = mEditTextEmail.getText().toString();
+
+                        //비밀번호가 같을때
                         if(pw.equals(pwcheck)&&!pw.equals("")){
                             InsertData task = new InsertData();
-                            task.execute(id, pw, name, age, phone, email, gender);
+                            task.execute(id, pw, name, age, phone, gender);
 
-                            mEditTextName.setText("");
-                            mEditTextId.setText("");
-                            mEditTextPw.setText("");
-                            mEditTextPwChk.setText("");
-                            mEditTextAge.setText("");
-                            mEditTextPhone.setText("");
-                            mEditTextEmail.setText("");
-                            mEditTextGender.setText("");
+                            //mEditTextName.setText("");
+                            //mEditTextId.setText("");
+                            //mEditTextPw.setText("");
+                            //mEditTextPwChk.setText("");
+                            //mEditTextAge.setText("");
+                            //mEditTextPhone.setText("");
+                            //mEditTextEmail.setText("");
+                            //EditTextGender.setText("");
+
                         }
                         else{
                             Toast.makeText(SubActivity.this, "비밀번호가 서로 다릅니다", Toast.LENGTH_LONG);
@@ -87,7 +101,6 @@ public class SubActivity extends AppCompatActivity {
                             mEditTextPw.setText("");
                             mEditTextPwChk.setText("");
                         }
-
                         break;
 
                 }
@@ -95,8 +108,21 @@ public class SubActivity extends AppCompatActivity {
             }
         };
 
-        btnCancel.setOnClickListener(listener);
+        RadioGroup.OnCheckedChangeListener radioGrpListener = new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i==R.id.radioBtnMan){
+                    gender = "Man";
+                }
+                else if(i==R.id.radioBtnWoman){
+                    gender = "Woman";
+                }
+            }
+        };
+
+        //btnCancel.setOnClickListener(listener);
         btnSend.setOnClickListener(listener);
+        mRadioGrp.setOnCheckedChangeListener(radioGrpListener);
 
     }
 
@@ -130,11 +156,11 @@ public class SubActivity extends AppCompatActivity {
             String name = (String)params[2];
             String age = (String)params[3];
             String phone = (String)params[4];
-            String email = (String)params[5];
-            String gender = (String)params[6];
+            //String email = (String)params[5];
+            String gender = (String)params[5];
 
-            String serverURL = "http://192.168.0.128/insertGaza.v2.0.php";
-            String postParameters = "id=" + id + "&pw=" + pw + "&name=" + name + "&age=" + age + "&phone=" + phone + "&email=" + email + "&gender=" + gender;
+            String serverURL = "http://192.168.0.128/insertGaza.v2.1.php";
+            String postParameters = "id=" + id + "&pw=" + pw + "&name=" + name + "&age=" + age + "&phone=" + phone + "&gender=" + gender;
 
 
             try {
