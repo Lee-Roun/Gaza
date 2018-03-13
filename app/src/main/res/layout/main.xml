@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+=======
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#488CF4">
 
 
     <SearchView
+<<<<<<< HEAD
         android:id="@+id/searchBar"
         android:layout_width="368dp"
         android:layout_height="23dp"
@@ -15,6 +23,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+=======
+        android:layout_width="368dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="4dp"
+        android:id="@+id/searchBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tabHost"/>
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <TabHost
         android:id="@+id/tabHost"

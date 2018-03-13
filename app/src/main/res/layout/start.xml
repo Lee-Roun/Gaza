@@ -5,27 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#488CF4"
+<<<<<<< HEAD
     tools:context="com.dgwood.gazalayout.MainActivity"
     tools:layout_editor_absoluteY="81dp">
+=======
+    tools:context="com.dgwood.gazalayout.MainActivity">
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <TextView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginStart="14dp"
         android:layout_marginTop="32dp"
+=======
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         android:fontFamily="casual"
         android:text="GAZA"
         android:textColor="#FFFFFF"
         android:textSize="60dp"
         android:textStyle="bold"
+<<<<<<< HEAD
         app:layout_constraintStart_toStartOf="@+id/edtID"
+=======
+        app:layout_constraintBottom_toTopOf="@id/ID"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="46dp"
         android:text="I  D"
         android:textColor="#FFFFFF"
@@ -35,23 +49,45 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
+=======
+        android:text="ID"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/PW"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline0"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <EditText
         android:id="@+id/edtID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginEnd="29dp"
         android:layout_marginTop="32dp"
+=======
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         android:ems="8"
         android:hint="example@abc.com"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="20dp"
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="@+id/ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ID"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
+=======
+        app:layout_constraintBaseline_toBaselineOf="@+id/ID"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/guideline0"
+        app:layout_constraintRight_toRightOf="parent" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <TextView
         android:id="@+id/PW"
@@ -61,64 +97,116 @@
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="@+id/edtPW"
         app:layout_constraintEnd_toStartOf="@+id/edtPW"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edtPW" />
+=======
+        app:layout_constraintBottom_toTopOf="@id/login"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline0"
+        app:layout_constraintTop_toBottomOf="@id/ID" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <EditText
         android:id="@+id/edtPW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginEnd="31dp"
         android:layout_marginTop="8dp"
+=======
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         android:ems="8"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
+<<<<<<< HEAD
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/PW"
         app:layout_constraintTop_toBottomOf="@+id/edtID" />
+=======
+        app:layout_constraintBaseline_toBaselineOf="@id/PW"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/guideline0"
+        app:layout_constraintRight_toRightOf="parent" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginStart="7dp"
         android:layout_marginTop="8dp"
+=======
+        android:background="@drawable/round_button"
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         android:text="로그인"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
+<<<<<<< HEAD
         app:layout_constraintStart_toStartOf="@+id/signUp"
         app:layout_constraintTop_toBottomOf="@+id/edtPW" />
+=======
+        app:layout_constraintBottom_toTopOf="@id/signUp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <Button
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginStart="29dp"
         android:layout_marginTop="8dp"
+=======
+        android:background="@drawable/round_button"
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         android:text="회원가입"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
+<<<<<<< HEAD
         app:layout_constraintStart_toStartOf="@+id/guideline0"
         app:layout_constraintTop_toBottomOf="@+id/login" />
+=======
+        app:layout_constraintBottom_toTopOf="@id/findIDorPW"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <TextView
         android:id="@+id/findIDorPW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginEnd="7dp"
         android:layout_marginTop="8dp"
+=======
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
         android:text="아이디/비밀번호 찾기"
         android:textColor="#FFFFFF"
         android:textSize="10dp"
         android:textStyle="italic"
+<<<<<<< HEAD
         app:layout_constraintEnd_toEndOf="@+id/signUp"
         app:layout_constraintTop_toBottomOf="@+id/signUp" />
+=======
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signUp" />
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline0"
@@ -128,4 +216,8 @@
         app:layout_constraintGuide_begin="111dp" />
 
 
+<<<<<<< HEAD
 </android.support.constraint.ConstraintLayout>
+=======
+</android.support.constraint.ConstraintLayout>
+>>>>>>> 2a684596f89b320f09e9866598063afcd845895d
