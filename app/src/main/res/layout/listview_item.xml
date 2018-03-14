@@ -4,62 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <TableLayout
-        android:layout_width="384dp"
-        android:layout_height="62dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:stretchColumns="0"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        >
-
-
-        <TableRow
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00FF00"
+            android:text="TextView"
+            android:textSize="24dp" />
 
-            <TextView
-                android:background="#00FF00"
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textSize="24dp" />
-
-            <TextView
-                android:id="@+id/budget"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="a"
-                android:gravity="center"
-                android:textSize="16dp" />
-        </TableRow>
-
-        <TableRow
+        <TextView
+            android:id="@+id/budget"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="a"
+            android:textSize="16dp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textSize="22dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/spentmoney"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#00FF00"
-                android:text="bdddddd"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14dp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textSize="22dp" />
 
+        <EditText
+            android:id="@+id/spentmoney"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number"
+            android:background="@null"/>
 
-    </TableLayout>
+    </LinearLayout>
+
 </LinearLayout>

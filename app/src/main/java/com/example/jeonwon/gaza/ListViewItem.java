@@ -5,35 +5,31 @@ import android.graphics.drawable.Drawable;
 public class ListViewItem {
 
     private String titleStr ;
-    private String descStr ;
-    private String budget;
-    private String spentMoney;
+    private String timeStr ;
+    private String budgetStr;
+    private String spentMoneyStr;
 
     public void setTitle(String title) {
         titleStr = title ;
     }
-    public void setDesc(String desc) {
-        descStr = desc ;
+    public void settime(String time) {timeStr = time ;}
+    public void setBudget(String budget) {
+        budgetStr = budget ;
     }
-    public void setBudget(String desc) {
-        descStr = budget ;
-    }
-    public void setSpentMoney(String desc) {
-        descStr = spentMoney ;
+    public void setSpentMoney(String spentMoney) {
+        spentMoneyStr = spentMoney ;
     }
 
 
     public String getTitle() {
         return this.titleStr ;
     }
-    public String getDesc() {
-        return this.descStr ;
-    }
+    public String gettime() {return this.timeStr ;}
     public String getBudget() {
-        return this.budget ;
+        return this.budgetStr ;
     }
     public String getSpentMoney() {
-        return this.spentMoney ;
+        return this.spentMoneyStr ;
     }
 }
 
