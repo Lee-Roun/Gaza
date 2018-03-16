@@ -86,20 +86,18 @@
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="로그인"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPW" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxLogin" />
 
     <Button
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="회원가입"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
@@ -120,5 +118,14 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/signUp"
         app:layout_constraintTop_toBottomOf="@+id/signUp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPW" />
 
 </android.support.constraint.ConstraintLayout>

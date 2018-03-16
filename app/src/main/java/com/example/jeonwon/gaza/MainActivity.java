@@ -1,21 +1,18 @@
 package com.example.jeonwon.gaza;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,8 +27,11 @@ public class MainActivity extends AppCompatActivity {
     private EditText ID, PW;
     private TextView Find;
     private Button btnLogin, btnJoin, btnFind;
+    private CheckBox chkBoxLogin;
 
     private String sID, sPW;
+    private boolean saveLoginData;
+    private SharedPreferences appData;
 
 
     @Override
@@ -39,12 +39,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start);
 
+        //앱 설정값 저장하는 변수
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        load();
+
         ID = (EditText) findViewById(R.id.edtID);
         PW = (EditText) findViewById(R.id.edtPW);
+        chkBoxLogin = (CheckBox)findViewById(R.id.checkBoxLogin);
 
         btnLogin = (Button) findViewById(R.id.login);
         btnJoin = (Button) findViewById(R.id.signUp);
         Find = (TextView) findViewById(R.id.findIDorPW);
+
+
+        if(saveLoginData){
+            ID.setText(sID);
+            PW.setText(sPW);
+            chkBoxLogin.setChecked(saveLoginData);
+        }
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -53,16 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (view.getId()) {
                     case R.id.login:
                         Login(view);
-                        Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                        startActivity(intent);
-                        ID.setText("");
-                        PW.setText("");
                         break;
                     case R.id.findIDorPW:
 
                         break;
                     case R.id.signUp:
-                        intent = new Intent(MainActivity.this, SubActivity.class);
+                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
                         startActivity(intent);
                         break;
 
@@ -78,7 +86,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void Login(View v) {
+    private void load(){
+        saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA",false);
+        sID = appData.getString("ID","");
+        sPW = appData.getString("PW","");
+
+    }
+
+    private void save(){
+        SharedPreferences.Editor editor = appData.edit();
+        editor.putBoolean("SAVE_LOGIN_DATA", chkBoxLogin.isChecked());
+        editor.putBoolean("SAVE_STAT", true);
+        editor.putString("ID", ID.getText().toString());
+        editor.putString("PW", PW.getText().toString());
+        editor.apply();
+    }
+
+    private void Login(View v) {
 
         try {
             sID = ID.getText().toString();
@@ -91,65 +115,18 @@ public class MainActivity extends AppCompatActivity {
         loinDB.execute();
     }
 
-    public class LoginDB extends AsyncTask<Void, Integer, Void> {
+    private class LoginDB extends AsyncTask<Void, Integer, Void> {
 
         String data = "";
-
+        ConnectSERVER conn = new ConnectSERVER();
+        boolean login = false;
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            String connURL = "http://192.168.0.128/loginGaza.v2.0.php";
-            String param = "id=" + sID + "&pw=" + sPW + "";
-
-            Log.e("POST", param);
-
-            try {
-                //서버 연결
-                //서버 연결
-                URL url = new URL(connURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                //httpURLConnection.setRequestProperty("content-type", "application/json");
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.connect();
-
-                //OutputStream은 안드로이드->서버
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(param.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                InputStream is = null;
-                BufferedReader in = null;
-
-                is = httpURLConnection.getInputStream();
-                in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
-                String line = null;
-                StringBuffer buff = new StringBuffer();
-                while ((line = in.readLine()) != null) {
-                    buff.append(line + "\n");
-                }
-                data = buff.toString().trim();
-
-                /* 서버에서 응답 */
-                Log.e("RECV DATA", data);
-
-                if (data.equals("0")) {
-                    Log.e("RESULT", "성공적으로 처리되었습니다!");
-                } else {
-                    Log.e("RESULT", "에러 발생! ERRCODE = " + data);
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(!login) {
+                conn.setUserInfo(sID, sPW);
+                data = conn.ConnectSERVER();
             }
 
             return null;
@@ -157,22 +134,52 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void avoid) {
-            super.onPostExecute(avoid);
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            sID = appData.getString("ID", ID.getText().toString());
+            sPW = appData.getString("PW", PW.getText().toString());
+            conn.setUserInfo(sID, sPW);
+            data = conn.ConnectSERVER();
 
             if (data.equals("0")) {
                 Log.e("RESULT", "성공적으로 처리되었습니다!");
                 Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
-
+                login = true;
+                save();
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("ID", ID.getText().toString());
+                startActivity(intent);
             } else if (data.equals("1")) {
                 Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
                 Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
             } else {
                 Log.e("RESULT", "에러 발생! ERRCODE = " + data);
                 Toast.makeText(MainActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
-
             }
 
+        }
+
+        @Override
+        protected void onPostExecute(Void avoid) {
+            super.onPostExecute(avoid);
+
+            if(!login) {
+                if (data.equals("0")) {
+                    Log.e("RESULT", "성공적으로 처리되었습니다!");
+                    Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
+                    save();
+                    Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                    startActivity(intent);
+                } else if (data.equals("1")) {
+                    Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
+                    Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                } else {
+                    Log.e("RESULT", "에러 발생! ERRCODE = " + data);
+                    Toast.makeText(MainActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
+
+                }
+            }
 
         }
 
