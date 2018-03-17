@@ -31,7 +31,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 return SecondFragment;
             case 2:
                 ThirdFragment ThirdFragment = new ThirdFragment();
-                ThirdFragment.setTextID(this.id);
+                //ThirdFragment.setTextID(this.id);
                 return ThirdFragment;
             default:
                 return null;

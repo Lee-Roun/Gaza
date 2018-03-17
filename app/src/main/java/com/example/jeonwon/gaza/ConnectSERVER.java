@@ -19,24 +19,27 @@ public class ConnectSERVER {
 
     private String sID, sPW, data, connURL;
 
-
-    protected void setUserInfo(String ID, String PW){
+    public ConnectSERVER(String ID, String PW, String URL){
+        sID = ID;
+        sPW = PW;
+        connURL = URL;
+    }
+/*
+    public void setUserInfo(String ID, String PW){
         sID = ID;
         sPW = PW;
     }
 
-    protected void setServer(){
+    public void setServer(){
         connURL = "http://192.168.0.128/loginGaza.v2.0.php";
     }
-
-    protected String ConnectSERVER() {
-        setServer();
+*/
+    public String ConnectSERVER() {
         String param = "id=" + sID + "&pw=" + sPW + "";
 
         Log.e("POST", param);
 
         try {
-            //서버 연결
             //서버 연결
             URL url = new URL(connURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

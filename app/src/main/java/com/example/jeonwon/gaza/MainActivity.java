@@ -118,28 +118,79 @@ public class MainActivity extends AppCompatActivity {
     private class LoginDB extends AsyncTask<Void, Integer, Void> {
 
         String data = "";
-        ConnectSERVER conn = new ConnectSERVER();
-        boolean login = false;
-
+        /*
+        ConnectSERVER conn;
+        boolean login;
+*/
         @Override
         protected Void doInBackground(Void... voids) {
+            String param = "id=" + sID + "&pw=" + sPW + "";
+            String connURL = "http://192.168.0.128/loginGaza.v2.0.php";
 
-            if(!login) {
-                conn.setUserInfo(sID, sPW);
-                data = conn.ConnectSERVER();
+            Log.e("POST", param);
+
+            try {
+                //서버 연결
+                URL url = new URL(connURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                //httpURLConnection.setRequestProperty("content-type", "application/json");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                //OutputStream은 안드로이드->서버
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(param.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                InputStream is = null;
+                BufferedReader in = null;
+
+                is = httpURLConnection.getInputStream();
+                in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
+                String line = null;
+                StringBuffer buff = new StringBuffer();
+                while ((line = in.readLine()) != null) {
+                    buff.append(line + "\n");
+                }
+                data = buff.toString().trim();
+
+                /* 서버에서 응답 */
+                Log.e("RECV DATA", data);
+
+                if (data.equals("0")) {
+                    Log.e("RESULT", "성공적으로 처리되었습니다!");
+                } else {
+                    Log.e("RESULT", "에러 발생! ERRCODE = " + data);
+                }
+
+                //return data;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                //return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+                //return data;
             }
+
+
 
             return null;
 
         }
-
+/*
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            login = false;
             sID = appData.getString("ID", ID.getText().toString());
             sPW = appData.getString("PW", PW.getText().toString());
-            conn.setUserInfo(sID, sPW);
+            conn =  new ConnectSERVER(sID, sPW, "http://192.168.0.128/loginGaza.v2.0.php");
             data = conn.ConnectSERVER();
 
             if (data.equals("0")) {
@@ -159,12 +210,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-
+*/
         @Override
         protected void onPostExecute(Void avoid) {
             super.onPostExecute(avoid);
 
-            if(!login) {
+            //if(!login) {
                 if (data.equals("0")) {
                     Log.e("RESULT", "성공적으로 처리되었습니다!");
                     Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
@@ -181,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-        }
+        //}
 
     }
 
