@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 
 /**
@@ -17,23 +18,21 @@ public class EditActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private  String ID;
+    protected String ID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tapmain);
-        Intent intent = getIntent();
-        ID = intent.getStringExtra("ID");
-
+        ID = getIntent().getStringExtra("ID");
         tabLayout = (TabLayout)findViewById(R.id.tab);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), ID);
-
+        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

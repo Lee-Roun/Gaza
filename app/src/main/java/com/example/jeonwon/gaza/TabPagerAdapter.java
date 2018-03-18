@@ -12,16 +12,13 @@ import android.widget.TextView;
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabCount;
-    private String id;
-    public TabPagerAdapter(FragmentManager fm, int tabCount, String ID) {
+    public TabPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         this.tabCount = tabCount;
-        this.id = ID;
     }
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position){
             case 0:
                 FirstFragment FirstFragment = new FirstFragment();
@@ -31,7 +28,6 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 return SecondFragment;
             case 2:
                 ThirdFragment ThirdFragment = new ThirdFragment();
-                //ThirdFragment.setTextID(this.id);
                 return ThirdFragment;
             default:
                 return null;

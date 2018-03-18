@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin, btnJoin, btnFind;
     private CheckBox chkBoxLogin;
 
-    private String sID, sPW;
+    private String sID, sPW, data;
     private boolean saveLoginData;
     private SharedPreferences appData;
 
@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+
+
         btnJoin.setOnClickListener(listener);
         //btnFind.setOnClickListener(listener);
         btnLogin.setOnClickListener(listener);
@@ -113,15 +115,18 @@ public class MainActivity extends AppCompatActivity {
 
         LoginDB loinDB = new LoginDB();
         loinDB.execute();
+
+
+
     }
 
     private class LoginDB extends AsyncTask<Void, Integer, Void> {
 
         String data = "";
-        /*
+
         ConnectSERVER conn;
         boolean login;
-*/
+
         @Override
         protected Void doInBackground(Void... voids) {
             String param = "id=" + sID + "&pw=" + sPW + "";
@@ -160,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 data = buff.toString().trim();
 
-                /* 서버에서 응답 */
                 Log.e("RECV DATA", data);
 
                 if (data.equals("0")) {
@@ -221,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
                     save();
                     Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                    intent.putExtra("ID",sID);
                     startActivity(intent);
                 } else if (data.equals("1")) {
                     Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
