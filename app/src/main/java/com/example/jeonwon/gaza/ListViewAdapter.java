@@ -18,11 +18,15 @@ public class ListViewAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
     private Context context;
+    private TextView spentMoney;
+    public int totalSpentMoney=0;
+    public int beforeSpentMoney=0;
+
     // ListViewAdapter의 생성자
-    public ListViewAdapter() {
-
+    public ListViewAdapter(MainActivity activity) {
+        MainActivity mActivity = activity;
+        spentMoney =mActivity.spentMoney;
     }
-
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
     @Override
     public int getCount() {
@@ -44,39 +48,75 @@ public class ListViewAdapter extends BaseAdapter {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title) ;
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time) ;
         TextView budgetTextView = (TextView) convertView.findViewById(R.id.budget) ;
-        TextView spentMoenyEditView = (EditText) convertView.findViewById(R.id.spentmoney) ;
+        final TextView spentMoenyEditView = (EditText) convertView.findViewById(R.id.spentmoney) ;
+
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ListViewItem listViewItem = listViewItemList.get(position);
+        final ListViewItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         titleTextView.setText(listViewItem.getTitle());
         timeTextView.setText(listViewItem.gettime());
         budgetTextView.setText(listViewItem.getBudget());
-        spentMoenyEditView.setText(listViewItem.getSpentMoney());
+//        spentMoenyEditView.setText(listViewItem.getSpentMoney());
 
         titleTextView.setOnClickListener(new detail_form());
         timeTextView.setOnClickListener(new detail_form());
         budgetTextView.setOnClickListener(new detail_form());
-        spentMoenyEditView.addTextChangedListener(new TextWatcher() {
+        spentMoenyEditView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText a =(EditText)v;
+                if (hasFocus == false){
+                    Toast.makeText(context, Integer.toString(a.getId()), Toast.LENGTH_SHORT).show();
+/*
+                    if(!a.getText().toString().equals("")){
+                        Toast.makeText(context, a.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                        totalSpentMoney += Integer.parseInt(a.getText().toString());
+                       //Toast.makeText(context,Integer.toString( totalSpentMoney), Toast.LENGTH_SHORT).show();
+
+                        spentMoney.setText(Integer.toString( totalSpentMoney));
+                    }*/
+                    try {
+
+                        Toast.makeText(context, "잃음", Toast.LENGTH_SHORT).show();
+                        totalSpentMoney = totalSpentMoney + Integer.parseInt(a.getText().toString());
+                        spentMoney.setText(Integer.toString(totalSpentMoney));
+                        Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
+                        v.clearFocus();
+                    }
+                    catch (Exception e){Toast.makeText(context, "에러", Toast.LENGTH_SHORT).show();}
+                }
+                else{
+                    Toast.makeText(context, "얻음", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();}
+            }
+        });
+        /* spentMoenyEditView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
-        });
+            public void afterTextChanged(Editable s) {
+                totalSpentMoney += Integer.parseInt(spentMoenyEditView.getText().toString());
+                spentMoney.setText(Integer.toString( totalSpentMoney));
+                Toast.makeText(context,"dds",Toast.LENGTH_SHORT).show();
+
+
+            }
+        });*/
 
 
         return convertView;
     }
     class detail_form implements View.OnClickListener{
         public void onClick(View v){
-            Toast.makeText(context, "dd", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "세부창", Toast.LENGTH_SHORT).show();
         }
     }
 

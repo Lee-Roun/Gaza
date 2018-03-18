@@ -1,5 +1,6 @@
 package com.example.jeonwon.gaza;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +10,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"};
     private Button add;
-
+    public TextView  spentMoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         add = (Button)findViewById(R.id.add);
+        spentMoney = (TextView)findViewById(R.id.todaymoney);
 
         ListView listview;
         ListViewAdapter adapter;
@@ -32,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Adapter 생성
-        adapter = new ListViewAdapter();
+        adapter = new ListViewAdapter(this);
 
         // 리스트뷰 참조 및 Adapter달기
         listview = (ListView) findViewById(R.id.listview);
