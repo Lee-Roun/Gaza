@@ -1,6 +1,5 @@
 package com.example.jeonwon.gaza;
 
-import android.graphics.drawable.Drawable;
 
 public class ListViewItem {
 
