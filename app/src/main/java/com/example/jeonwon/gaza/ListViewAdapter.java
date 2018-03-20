@@ -1,7 +1,9 @@
 package com.example.jeonwon.gaza;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,11 +20,18 @@ public class ListViewAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
     private Context context;
+    private ListViewSchedule mActivity;
+
+    private TextView spentMoney;
+
+    public int totalSpentMoney=0;
+    public int beforeSpentMoney=0;
+
     // ListViewAdapter의 생성자
-    public ListViewAdapter() {
-
+    public ListViewAdapter(ListViewSchedule activity) {
+        mActivity = activity;
+        spentMoney =mActivity.spentMoney;
     }
-
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
     @Override
     public int getCount() {
@@ -44,39 +53,46 @@ public class ListViewAdapter extends BaseAdapter {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title) ;
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time) ;
         TextView budgetTextView = (TextView) convertView.findViewById(R.id.budget) ;
-        TextView spentMoenyEditView = (EditText) convertView.findViewById(R.id.spentmoney) ;
+        final TextView spentMoenyEditView = (EditText) convertView.findViewById(R.id.spentmoney) ;
+
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ListViewItem listViewItem = listViewItemList.get(position);
+        final ListViewItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         titleTextView.setText(listViewItem.getTitle());
         timeTextView.setText(listViewItem.gettime());
         budgetTextView.setText(listViewItem.getBudget());
-        spentMoenyEditView.setText(listViewItem.getSpentMoney());
+//        spentMoenyEditView.setText(listViewItem.getSpentMoney());
 
         titleTextView.setOnClickListener(new detail_form());
         timeTextView.setOnClickListener(new detail_form());
         budgetTextView.setOnClickListener(new detail_form());
-        spentMoenyEditView.addTextChangedListener(new TextWatcher() {
+
+       /*  spentMoenyEditView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
-        });
+            public void afterTextChanged(Editable s) {
+                totalSpentMoney += Integer.parseInt(spentMoenyEditView.getText().toString());
+                spentMoney.setText(Integer.toString( totalSpentMoney));
+                Toast.makeText(context,"dds",Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
 
         return convertView;
     }
     class detail_form implements View.OnClickListener{
         public void onClick(View v){
-            Toast.makeText(context, "dd", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "세부창", Toast.LENGTH_SHORT).show();
+            Intent adintent =  mActivity.intent;
+            context.startActivity(adintent);
         }
     }
 

@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Gaza</string>
     <string name="Add">Add</string>
+    <string name="detail"> 세부내용</string>
+    <string name="location">장소</string>
+    <string name="time">시간</string>
+    <string name="budget">예산</string>
+    <string name="spentmoney">사용한
+        금액</string>
+    <string name="memo">메모</string>
+    <string name="space"> </string>
 </resources>
