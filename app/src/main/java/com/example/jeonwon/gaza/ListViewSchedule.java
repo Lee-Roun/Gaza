@@ -1,6 +1,11 @@
 package com.example.jeonwon.gaza;
 
 import android.content.Intent;
+<<<<<<< HEAD:app/src/main/java/com/example/jeonwon/gaza/ListViewSchedule.java
+=======
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+>>>>>>> e44c25e6835dee9ff47cf71cd1b8c965ddbdc0d9:app/src/main/java/com/example/jeonwon/gaza/MainActivity.java
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD:app/src/main/java/com/example/jeonwon/gaza/ListViewSchedule.java
 public class ListViewSchedule extends AppCompatActivity {
     static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"};
     private Button add;
@@ -23,6 +29,21 @@ public class ListViewSchedule extends AppCompatActivity {
         spentMoney = (TextView)findViewById(R.id.todaymoney);
 
         intent = new Intent(getApplicationContext(), ScheduleDetail.class);
+=======
+import org.w3c.dom.Text;
+
+public class MainActivity extends AppCompatActivity {
+    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"};
+    private Button add;
+    public TextView  spentMoney;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        add = (Button)findViewById(R.id.add);
+        spentMoney = (TextView)findViewById(R.id.todaymoney);
+>>>>>>> e44c25e6835dee9ff47cf71cd1b8c965ddbdc0d9:app/src/main/java/com/example/jeonwon/gaza/MainActivity.java
 
         ListView listview;
         ListViewAdapter adapter;
@@ -37,7 +58,10 @@ public class ListViewSchedule extends AppCompatActivity {
 
         // Adapter 생성
         adapter = new ListViewAdapter(this);
+<<<<<<< HEAD:app/src/main/java/com/example/jeonwon/gaza/ListViewSchedule.java
 
+=======
+>>>>>>> e44c25e6835dee9ff47cf71cd1b8c965ddbdc0d9:app/src/main/java/com/example/jeonwon/gaza/MainActivity.java
 
         // 리스트뷰 참조 및 Adapter달기
         listview = (ListView) findViewById(R.id.listview);
