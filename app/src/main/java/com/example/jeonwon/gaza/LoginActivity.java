@@ -3,8 +3,9 @@ package com.example.jeonwon.gaza;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,26 +23,25 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by JeonWon on 2018-03-22.
+ */
+
+public class LoginActivity extends AppCompatActivity {
+
     private EditText ID, PW;
     private TextView Find;
-    private Button btnLogin, btnJoin, btnFind;
+    private Button btnLogin, btnJoin;
     private CheckBox chkBoxLogin;
-
-    private String sID, sPW, data;
-    private boolean saveLoginData, LoginState;
-    public static SharedPreferences appData;
-
+    private boolean saveLoginData;
+    private String sID, sPW;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.start);
 
-        //앱 설정값 저장하는 변수
-        appData = getSharedPreferences("appData", MODE_PRIVATE);
-        load();
-/*
+
         ID = (EditText) findViewById(R.id.edtID);
         PW = (EditText) findViewById(R.id.edtPW);
         chkBoxLogin = (CheckBox)findViewById(R.id.checkBoxLogin);
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.signUp:
-                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, SubActivity.class);
                         startActivity(intent);
                         break;
 
@@ -82,52 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnJoin.setOnClickListener(listener);
-        //btnFind.setOnClickListener(listener);
         btnLogin.setOnClickListener(listener);
-*/
-        LoginState = appData.getBoolean("LOGIN",false);
-
-        Toast.makeText(MainActivity.this, Boolean.toString(LoginState), Toast.LENGTH_LONG).show();
-
-        LoginCheck loginCheck = new LoginCheck();
-        loginCheck.execute();
-
 
     }
 
-    private class LoginCheck extends AsyncTask<Void, Integer, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-
-            return null;
-        }
-
-        protected void onPostExecute(Void avoid) {
-            super.onPostExecute(avoid);
-
-            if(LoginState){
-                Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                startActivity(intent);
-            }
-            else{
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        }
-
-    }
-
-    private void load(){
-        saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA",false);
-        sID = appData.getString("ID","");
-        sPW = appData.getString("PW","");
-
-    }
 
     private void save(){
-        SharedPreferences.Editor editor = appData.edit();
+        SharedPreferences.Editor editor = MainActivity.appData.edit();
         editor.putBoolean("SAVE_LOGIN_DATA", chkBoxLogin.isChecked());
         editor.putBoolean("SAVE_STAT", true);
         editor.putString("ID", ID.getText().toString());
@@ -135,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("LOGIN", true);
         editor.apply();
     }
+
+
 
     private void Login(View v) {
 
@@ -145,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Error", e.getMessage());
         }
 
-        LoginDB loinDB = new LoginDB();
+        LoginActivity.LoginDB loinDB = new LoginActivity.LoginDB();
         loinDB.execute();
 
 
@@ -219,58 +181,57 @@ public class MainActivity extends AppCompatActivity {
             return null;
 
         }
-/*
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            login = false;
-            sID = appData.getString("ID", ID.getText().toString());
-            sPW = appData.getString("PW", PW.getText().toString());
-            conn =  new ConnectSERVER(sID, sPW, "http://192.168.0.128/loginGaza.v2.0.php");
-            data = conn.ConnectSERVER();
+        /*
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    login = false;
+                    sID = appData.getString("ID", ID.getText().toString());
+                    sPW = appData.getString("PW", PW.getText().toString());
+                    conn =  new ConnectSERVER(sID, sPW, "http://192.168.0.128/loginGaza.v2.0.php");
+                    data = conn.ConnectSERVER();
 
-            if (data.equals("0")) {
-                Log.e("RESULT", "성공적으로 처리되었습니다!");
-                Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
-                login = true;
-                save();
-                Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                intent.putExtra("ID", ID.getText().toString());
-                startActivity(intent);
-            } else if (data.equals("1")) {
-                Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
-                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
-            } else {
-                Log.e("RESULT", "에러 발생! ERRCODE = " + data);
-                Toast.makeText(MainActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
-            }
+                    if (data.equals("0")) {
+                        Log.e("RESULT", "성공적으로 처리되었습니다!");
+                        Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
+                        login = true;
+                        save();
+                        Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                        intent.putExtra("ID", ID.getText().toString());
+                        startActivity(intent);
+                    } else if (data.equals("1")) {
+                        Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
+                        Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.e("RESULT", "에러 발생! ERRCODE = " + data);
+                        Toast.makeText(MainActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
+                    }
 
-        }
-*/
+                }
+        */
         @Override
         protected void onPostExecute(Void avoid) {
             super.onPostExecute(avoid);
 
             //if(!login) {
-                if (data.equals("0")) {
-                    Log.e("RESULT", "성공적으로 처리되었습니다!");
-                    Toast.makeText(MainActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
-                    save();
-                    Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                    intent.putExtra("ID",sID);
-                    startActivity(intent);
-                } else if (data.equals("1")) {
-                    Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
-                    Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
-                } else {
-                    Log.e("RESULT", "에러 발생! ERRCODE = " + data);
-                    Toast.makeText(MainActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
+            if (data.equals("0")) {
+                Log.e("RESULT", "성공적으로 처리되었습니다!");
+                Toast.makeText(LoginActivity.this, sID + "님 환영합니다!", Toast.LENGTH_LONG).show();
+                save();
+                Intent intent = new Intent(LoginActivity.this, EditActivity.class);
+                intent.putExtra("ID",sID);
+                startActivity(intent);
+            } else if (data.equals("1")) {
+                Log.e("RESULT", "비밀번호가 일치하지 않습니다.");
+                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+            } else {
+                Log.e("RESULT", "에러 발생! ERRCODE = " + data);
+                Toast.makeText(LoginActivity.this, data + "등록중 에러", Toast.LENGTH_LONG).show();
 
-                }
             }
+        }
 
         //}
 
     }
-
 }
