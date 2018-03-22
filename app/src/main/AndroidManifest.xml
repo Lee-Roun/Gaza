@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MakePlan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +21,9 @@
 
         <activity android:name=".SubActivity"></activity>
         <activity android:name=".EditActivity"></activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ScheduleList"/>
+        <activity android:name=".ScheduleDetail"/>
 
     </application>
 
