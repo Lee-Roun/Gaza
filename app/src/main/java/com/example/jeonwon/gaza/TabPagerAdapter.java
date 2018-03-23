@@ -24,11 +24,15 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 FirstFragment FirstFragment = new FirstFragment();
                 return FirstFragment;
             case 1:
-                SecondFragment SecondFragment = new SecondFragment();
-                return SecondFragment;
-            case 2:
+                ThirdFragment ThirdFragment = new ThirdFragment();
+
+                //SecondFragment SecondFragment = new SecondFragment();
+                return ThirdFragment;
+            /*
+                case 2:
                 ThirdFragment ThirdFragment = new ThirdFragment();
                 return ThirdFragment;
+                */
             default:
                 return null;
         }

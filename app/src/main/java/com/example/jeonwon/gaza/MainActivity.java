@@ -37,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.tapmain);
 
+
+/*
         //앱 설정값 저장하는 변수
         appData = getSharedPreferences("appData", MODE_PRIVATE);
         load();
-/*
+
         ID = (EditText) findViewById(R.id.edtID);
         PW = (EditText) findViewById(R.id.edtPW);
         chkBoxLogin = (CheckBox)findViewById(R.id.checkBoxLogin);
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         btnJoin.setOnClickListener(listener);
         //btnFind.setOnClickListener(listener);
         btnLogin.setOnClickListener(listener);
-*/
+
         LoginState = appData.getBoolean("LOGIN",false);
 
         Toast.makeText(MainActivity.this, Boolean.toString(LoginState), Toast.LENGTH_LONG).show();
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         LoginCheck loginCheck = new LoginCheck();
         loginCheck.execute();
 
-
+*/
     }
 
     private class LoginCheck extends AsyncTask<Void, Integer, Void> {

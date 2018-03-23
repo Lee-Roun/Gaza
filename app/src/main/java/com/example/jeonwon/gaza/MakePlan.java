@@ -156,15 +156,12 @@ public class MakePlan extends AppCompatActivity{
             }
         });
 
-        //액티비티파일이 아직 따로 없어서 이부분은 주석으로 해놓음
-        /*cancle.setOnClickListener(new View.OnClickListener() {
+        cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),main.class);//취소버튼 눌렀을 때 이전화면으로 가기 (클래스파일은 임의로 적어놓음)
-                startActivity(intent);
                 finish();
             }
-        });*/
+        });
 
     }
 

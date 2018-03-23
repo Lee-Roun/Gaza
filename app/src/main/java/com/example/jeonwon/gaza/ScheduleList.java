@@ -27,6 +27,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class ScheduleList extends AppCompatActivity {
 
+    //며칠짜리 여행인지 선택하면 생기는 클래스
     LinearLayout layout;
     int people;
     long tripPeriod;
@@ -39,6 +40,7 @@ public class ScheduleList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulelist);
 
+
         layout=(LinearLayout)findViewById(R.id.layout);
         adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
 
@@ -46,6 +48,10 @@ public class ScheduleList extends AppCompatActivity {
         tripPeriod=intent.getLongExtra("TripPeriod",0);
         people=intent.getIntExtra("People",0);
 
+
+
+
+        //N일차 만큼 리스트 만드는 루프
         for(int i=1;i<=tripPeriod;i++){
             TextView textView=new TextView(this);
             textView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT,WRAP_CONTENT));
@@ -54,15 +60,16 @@ public class ScheduleList extends AppCompatActivity {
             textView.setBackgroundColor(Color.GRAY);
             layout.addView(textView);
 
-
-            final ListView listView=new ListView(this);
             final ArrayList list=new ArrayList();
+
+            final ListView listView= new ListView(this);
             final ListViewAdapter adapter;
             adapter=new ListViewAdapter(this);
             listView.setAdapter(adapter);
-            listView.setLayoutParams(new ViewGroup.LayoutParams(WRAP_CONTENT,WRAP_CONTENT));
+            listView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT,WRAP_CONTENT));
             layout.addView(listView);
 
+            //각 일차별 상세 일정 추가 버튼
             Button btn=new Button(this);
             btn.setText("추가");
             btn.setTextSize(20);
@@ -70,13 +77,13 @@ public class ScheduleList extends AppCompatActivity {
             btn.setLayoutParams(params );
             layout.addView(btn);
 
+            //버튼 리스너
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(ScheduleList.this, "d", Toast.LENGTH_SHORT).show();
-                    adapter.addItem(null,Integer.toString(a),"d","예싼","");
+                    adapter.addItem(null,Integer.toString(a++),"d","예싼","");
                     adapter.notifyDataSetChanged();
-                    a++;
                 }
             });
         }
