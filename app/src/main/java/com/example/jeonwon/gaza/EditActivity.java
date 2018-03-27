@@ -9,20 +9,26 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 
 /**
  * Created by JeonWon on 2018-03-10.
  */
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     protected String ID;
 
+    private GoogleMap googleMap;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tapmain);
+        setContentView(R.layout.map);
+
+
         ID = getIntent().getStringExtra("ID");
         tabLayout = (TabLayout)findViewById(R.id.tab);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -50,6 +56,11 @@ public class EditActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
 
     }
 }

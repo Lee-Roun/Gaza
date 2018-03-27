@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyC-PiJhaeOQcu288CgZD8Dt-xo1idhWViQ" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
