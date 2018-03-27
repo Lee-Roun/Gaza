@@ -17,6 +17,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
  * Created by JeonWon on 2018-03-10.
  */
 
+//구글맵 API 키
+//AIzaSyC-PiJhaeOQcu288CgZD8Dt-xo1idhWViQ
 public class EditActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private TabLayout tabLayout;
