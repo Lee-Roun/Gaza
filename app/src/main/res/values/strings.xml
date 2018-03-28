@@ -16,7 +16,9 @@
     <string name="MyPlan">내여행</string>
     <string name="SharedPlan">공유</string>
     <string name="Manage">설정</string>
+
     <style name="saveCheck">로그인 정보 저장</style>
+
     <string name="Add">Add</string>
 
     <string name="detail"> 세부내용</string>
@@ -32,4 +34,5 @@
     <string name="memo">메모</string>
 
     <string name="space"> </string>
+    <string name="title_activity_maps">Map</string>
 </resources>
