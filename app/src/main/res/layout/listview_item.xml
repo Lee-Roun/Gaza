@@ -23,7 +23,7 @@
             android:textSize="24dp" />
 
         <TextView
-            android:id="@+id/budget"
+            android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -39,20 +39,18 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/budget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="TextView"
             android:textSize="22dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/spentmoney"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number"
             android:background="@null"/>
 
     </LinearLayout>

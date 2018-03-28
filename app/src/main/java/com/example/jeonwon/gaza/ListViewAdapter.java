@@ -1,11 +1,15 @@
 package com.example.jeonwon.gaza;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -25,7 +29,7 @@ public class ListViewAdapter extends BaseAdapter {
     private Context context;
     private ListViewSchedule mActivity;
     private TextView spentMoney;
-
+    private   Intent intentPop;
 
     // ListViewAdapter의 생성자
     public ListViewAdapter(ListViewSchedule activity) {
@@ -58,7 +62,7 @@ public class ListViewAdapter extends BaseAdapter {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
         TextView budgetTextView = (TextView) convertView.findViewById(R.id.budget);
-        TextView spentMoenyEditView = (EditText) convertView.findViewById(R.id.spentmoney);
+        TextView spentMoenyEditView = (TextView) convertView.findViewById(R.id.spentmoney);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
@@ -74,7 +78,8 @@ public class ListViewAdapter extends BaseAdapter {
         //클릭이벤트 발생
         titleTextView.setOnClickListener(new detail_form());
         timeTextView.setOnClickListener(new detail_form());
-        budgetTextView.setOnClickListener(new detail_form());
+        budgetTextView.setOnLongClickListener(new modify_money());
+        spentMoenyEditView.setOnLongClickListener(new modify_money());
 
         return convertView;
 
@@ -82,10 +87,21 @@ public class ListViewAdapter extends BaseAdapter {
 
     class detail_form implements View.OnClickListener {
         public void onClick(View v) {//세부창으로 이동 아직 데이터는 안줌
+           Log.i("d","e");
             Intent adintent = mActivity.intent;
             context.startActivity(adintent);
         }
     }
+
+    class modify_money implements View.OnLongClickListener{
+        @Override
+        public boolean onLongClick(View v) {
+           Log.i("d","누름");
+          //  String a =mActivity.a();
+            return false;
+        }
+    }
+
 
     // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현
     @Override
@@ -110,5 +126,17 @@ public class ListViewAdapter extends BaseAdapter {
         item.setSpentMoney(spentMoney);
 
         listViewItemList.add(item);
+    }/*
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode==ListViewSchedule.RESULT_OK){
+            //데이터 받기
+            String result = data.getStringExtra("result");
+            spentMoney.setText(result);
+        }
     }
+*/
+
+
+
 }

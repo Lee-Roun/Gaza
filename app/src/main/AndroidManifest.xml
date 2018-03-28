@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScheduleDetail"/>
+        <activity android:name=".Spentmoney_popup" android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
 
 </manifest>
