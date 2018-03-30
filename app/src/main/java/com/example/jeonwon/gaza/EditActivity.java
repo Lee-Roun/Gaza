@@ -23,7 +23,6 @@ public class EditActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    protected String ID;
 
     private GoogleMap googleMap;
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,6 @@ public class EditActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.tapmain);
 
 
-        ID = getIntent().getStringExtra("ID");
         tabLayout = (TabLayout)findViewById(R.id.tab);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

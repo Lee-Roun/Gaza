@@ -17,8 +17,7 @@ public class SettingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.manage, container, false);
-        ID = (TextView)view.findViewById(R.id.textViewID);
-        ID.setText("ID : "+((EditActivity)getActivity()).ID);
+
         return view;
     }
 
