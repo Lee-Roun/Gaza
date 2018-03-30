@@ -82,17 +82,7 @@ public class MakePlan extends AppCompatActivity{
                         eMonth = monthOfYear+1;
                         eDay = dayOfMonth;
                         endDay.setText(eYear+"."+eMonth+"."+eDay);
-
-                        //날짜 설정 잘못됐을 때 토스트 띄우기 및 날짜 글씨 붉게함
-                        if(eYear<sYear||eMonth<sMonth||eDay<sDay){
-                            Toast.makeText(MakePlan.this,"날짜 설정이 잘못되었습니다.",Toast.LENGTH_LONG).show();
-                            startDay.setTextColor(Color.RED);
-                            endDay.setTextColor(Color.RED);
-                        }
-                        else{
-                            startDay.setTextColor(Color.BLACK);
-                            endDay.setTextColor(Color.BLACK);
-                        }
+                        endDay.setTextColor(Color.BLACK);
                     }
                 };
 
@@ -119,40 +109,33 @@ public class MakePlan extends AppCompatActivity{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(startDay.getTextColors().equals(Color.RED)){
-                    Toast.makeText(MakePlan.this,"날짜 설정이 잘못되었습니다.",Toast.LENGTH_LONG).show();
-                }
-                else if(editPlanName.getText().toString().equals("")){
-                    Toast.makeText(MakePlan.this,"일정의 이름을 기입해주세요.",Toast.LENGTH_LONG).show();
-                }
-                else if(editBudget.getText().toString().equals("")){
-                    Toast.makeText(MakePlan.this,"여행 예산을 입력해주세요.",Toast.LENGTH_LONG).show();
-                }
-                else if(startDay.getText().toString().equals("")
-                        ||endDay.getText().toString().equals("")){
-                    Toast.makeText(MakePlan.this,"날짜를 입력해주세요",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    long tripPeriod;
-                    String start=startDay.getText().toString();
-                    String end=endDay.getText().toString();
-                    SimpleDateFormat formatter=new SimpleDateFormat("yyyy.MM.dd");
-                    try {
-                        Date startDate=formatter.parse(start);
-                        Date endDate=formatter.parse(end);
-                        tripPeriod=endDate.getTime()-startDate.getTime();
-                        tripPeriod/=(24*60*60*1000);
-                        tripPeriod++;
-                        Intent intent=new Intent(getApplicationContext(),ScheduleList.class);
-                        intent.putExtra("TripPeriod",tripPeriod);
-                        intent.putExtra("PlanName",editPlanName.getText().toString());
-                        intent.putExtra("Budget",editBudget.getText().toString());
-                        intent.putExtra("People",editPeople.getValue());
-                        startActivity(intent);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                long tripPeriod;
+                String start = startDay.getText().toString();
+                String end = endDay.getText().toString();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+                try {
+                    Date startDate = formatter.parse(start);
+                    Date endDate = formatter.parse(end);
+                    tripPeriod = endDate.getTime() - startDate.getTime();
+                    tripPeriod /= (24 * 60 * 60 * 1000);
+                    tripPeriod++;
+                    if(tripPeriod<=0||
+                            editPlanName.getText().toString().equals("")||
+                            editBudget.getText().toString().equals("")){
+                        Toast.makeText(MakePlan.this, "여행 정보를 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
                     }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(), ScheduleList.class);
+                        intent.putExtra("TripPeriod", tripPeriod);
+                        intent.putExtra("PlanName", editPlanName.getText().toString());
+                        intent.putExtra("Budget", editBudget.getText().toString());
+                        intent.putExtra("People", editPeople.getValue());
+                        startActivity(intent);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+
             }
         });
 

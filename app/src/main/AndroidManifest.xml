@@ -28,6 +28,8 @@
         <activity android:name=".MakePlan"/>
         <activity android:name=".ScheduleList"/>
         <activity android:name=".ScheduleDetail"/>
+        <activity android:name=".Spentmoney_popup"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
 
     </application>
 
