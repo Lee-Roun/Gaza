@@ -13,7 +13,7 @@ import android.widget.Button;
  * Created by JeonWon on 2018-03-13.
  */
 
-public class FirstFragment extends Fragment {
+public class MainFragment extends Fragment {
 
     private View view;
     private Button button, buttonMap;
