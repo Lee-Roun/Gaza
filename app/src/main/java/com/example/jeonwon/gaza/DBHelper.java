@@ -23,14 +23,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // String 보다 StringBuffer가 Query 만들기 편하다.
         StringBuffer sb = new StringBuffer();
+        //CREATE TABLE TEST_TABLE ( _ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, PEOPLE INTEGER, BUDGET TEXT,  START DATE, END DATE);
         sb.append(" CREATE TABLE TEST_TABLE ( ");
         sb.append(" _ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
-        sb.append(" NAME TEXT, ");
-        sb.append(" AGE INTEGER, ");
-        sb.append(" PHONE TEXT ) ");
+        sb.append(" TITLE TEXT, ");
+        sb.append(" PEOPLE INTEGER, ");
+        sb.append(" BUDGET TEXT, ");
+        sb.append(" START DATE, ");
+        sb.append(" END DATE ) ");
 
         // SQLite Database로 쿼리 실행
         sqLiteDatabase.execSQL(sb.toString());
+
         Toast.makeText(context, "Table 생성완료", Toast.LENGTH_SHORT).show();
 
     }

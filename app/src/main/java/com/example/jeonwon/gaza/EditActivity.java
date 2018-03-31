@@ -26,6 +26,7 @@ public class EditActivity extends AppCompatActivity{
     private DBHelper dbHelper;
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tapmain);
