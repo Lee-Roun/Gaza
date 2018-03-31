@@ -19,27 +19,34 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 
 //구글맵 API 키
 //AIzaSyC-PiJhaeOQcu288CgZD8Dt-xo1idhWViQ
-public class EditActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class EditActivity extends AppCompatActivity{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DBHelper dbHelper;
 
-    private GoogleMap googleMap;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tapmain);
 
+        //DB
+        dbHelper = new DBHelper(EditActivity.this, "GazaDB", null, 1);
+        dbHelper.testDB();
+        //DB
 
-        tabLayout = (TabLayout)findViewById(R.id.tab);
+        //탭페이지
+        tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
+        //뷰페이저 달기
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
+        //탭 넘어가는 리스너
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -56,11 +63,6 @@ public class EditActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
-
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
 }
