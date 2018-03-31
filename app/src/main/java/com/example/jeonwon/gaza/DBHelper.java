@@ -13,6 +13,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private Context context;
 
+    //생성자
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         this.context = context;
