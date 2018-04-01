@@ -23,27 +23,16 @@ public class LoadingActivity extends AppCompatActivity {
 
     private TextView textView;
     private Animation anim;
-    private Button button;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         textView = (TextView) findViewById(R.id.textViewLogo);
-        button = (Button)findViewById(R.id.buttonDB);
 
         initView();
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
-
-        startLoading();
+        //startLoading();
 
 
     }
@@ -64,7 +53,6 @@ public class LoadingActivity extends AppCompatActivity {
         anim = AnimationUtils.loadAnimation(this, R.anim.loading);
         textView.setAnimation(anim);
     }
-
 
     public class loading extends AsyncTask<Void, Void, Void> {
 

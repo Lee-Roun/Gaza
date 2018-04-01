@@ -20,16 +20,16 @@ import java.util.ArrayList;
 public class ListViewPlanAdapter extends BaseAdapter{
 
     private ArrayList<ListViewPlanItem> listPlan = new ArrayList<ListViewPlanItem>();
-
+    private ArrayList<Plan> plans = new ArrayList<Plan>();
 
     @Override
     public int getCount() {
-        return listPlan.size();
+        return plans.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listPlan.get(i);
+        return plans.get(i);
     }
 
     @Override
@@ -49,9 +49,10 @@ public class ListViewPlanAdapter extends BaseAdapter{
 
         TextView textView = (TextView)view.findViewById(R.id.textViewPlan);
 
-        ListViewPlanItem listViewPlanItem = listPlan.get(i);
+        //ListViewPlanItem listViewPlanItem = listPlan.get(i);
+        Plan plan = plans.get(i);
 
-        textView.setText(listViewPlanItem.getPlanName());
+        textView.setText(plan.getTitle());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +65,11 @@ public class ListViewPlanAdapter extends BaseAdapter{
     }
 
     public void addPlanItem(String planName){
-        ListViewPlanItem item = new ListViewPlanItem();
+        //ListViewPlanItem item = new ListViewPlanItem();
+        Plan item = new Plan();
 
-        item.setPlanName(planName);
+        item.setTitle(planName);
 
-        listPlan.add(item);
+        plans.add(item);
     }
 }

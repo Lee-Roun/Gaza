@@ -8,10 +8,11 @@ public class ListViewPlanItem {
 
     private String planName;
 
-    public void setPlanName(String planName){
+    public void setPlanName(String planName) {
         this.planName = planName;
     }
-    public String getPlanName(){
+
+    public String getPlanName() {
         return this.planName;
     }
 

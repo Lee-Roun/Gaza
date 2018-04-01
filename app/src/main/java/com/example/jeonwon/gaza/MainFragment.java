@@ -1,6 +1,8 @@
 package com.example.jeonwon.gaza;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,17 +29,25 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.myplanlist, container,false);
+        view = inflater.inflate(R.layout.myplanlist, container, false);
 
-        button = (Button)view.findViewById(R.id.buttonMakePlan);
-        buttonMap =(Button)view.findViewById(R.id.buttonMap);
+
+        button = (Button) view.findViewById(R.id.buttonMakePlan);
+        buttonMap = (Button) view.findViewById(R.id.buttonMap);
 
         listViewPlanAdapter = new ListViewPlanAdapter();
-        listView = (ListView)view.findViewById(R.id.listViewPlan);
+        listView = (ListView) view.findViewById(R.id.listViewPlan);
 
         listView.setAdapter(listViewPlanAdapter);
 
-        for(int i=0; i<planName.length; i++){
+        if (EditActivity.dbHelper == null) {
+            EditActivity.dbHelper = new DBHelper(getContext(), "GazaDB", null, 1);
+        }
+
+        List plan = EditActivity.dbHelper.getAllPlanData();
+
+
+        for (int i = 0; i < planName.length; i++) {
             listViewPlanAdapter.addPlanItem(planName[i]);
         }
 
@@ -58,5 +71,7 @@ public class MainFragment extends Fragment {
 
         return view;
     }
+
+
 
 }

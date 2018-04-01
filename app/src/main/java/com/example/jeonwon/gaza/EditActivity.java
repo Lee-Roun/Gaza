@@ -23,7 +23,7 @@ public class EditActivity extends AppCompatActivity{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private DBHelper dbHelper;
+    protected static DBHelper dbHelper;
 
 
 
