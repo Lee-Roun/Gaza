@@ -1,29 +1,28 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-public class ListViewSchedule extends AppCompatActivity {
-    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"};
+public class ListViewSchedule extends Activity {
     private Button add;
     public TextView spentMoney;
+
     public Intent intent;
     public Intent intentPop;
-    public ListViewAdapter adapter;
-    TextView d;
-    public String result;
 
+    public ListViewAdapter adapter;
+    private ListView listView;
+
+    private String memo;
+
+    int pos;//아이템 위치
+    ListViewItem listItem;//아이템 한개
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,55 +30,85 @@ public class ListViewSchedule extends AppCompatActivity {
 
         add = (Button) findViewById(R.id.add);
         spentMoney = (TextView) findViewById(R.id.todaymoney);
-        d = (TextView) findViewById(R.id.spentmoney);
-
 
         intent = new Intent(getApplicationContext(), ScheduleDetail.class);
         intentPop = new Intent(getApplicationContext(), Spentmoney_popup.class);
-        ListView listview;
+
+        // Adapter 생성
         adapter = new ListViewAdapter(this);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //  startActivity(intent);
-                adapter.addItem(null, "text", "이", "예산", "");
+                adapter.addItem(null, "", "", "예산", "22");
                 adapter.notifyDataSetChanged();
 //                Toast.makeText(ListViewSchedule.this, "추가 창 넘어가기", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Adapter 생성
-
 
         // 리스트뷰 참조 및 Adapter달기
-        listview = (ListView) findViewById(R.id.listview);
-        listview.setAdapter(adapter);
+        listView = (ListView) findViewById(R.id.listview);
+        listView.setAdapter(adapter);
 
-        // adapter.addItem(null, "text1", "정", "예산dsf", "");
-        // adapter.addItem(null, "text2", "원", "예산sdfsd", "");
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                pos = position;
+                startActivityForResult(intentPop, 1);
+
+                return true;
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ListView temp = (ListView) parent;
+                ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();
+                listItem = (ListViewItem) Atemp.getItem(position);
+
+              /*  Log.i("값",itemp.getTitle());
+                Log.i("값",itemp.gettime());
+                Log.i("값",itemp.getBudget());
+                Log.i("값",itemp.getSpentMoney());*/
+                intent.putExtra("place", listItem.getTitle().toString());
+                intent.putExtra("time", listItem.gettime().toString());
+                intent.putExtra("budget", listItem.getBudget().toString());
+                intent.putExtra("spentmoney", listItem.getSpentMoney().toString());
+                intent.putExtra("memo", listItem.getMemo());
+                startActivityForResult(intent, 2);
+
+            }
+        });
 
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                //데이터 받기
+                String result = data.getStringExtra("spentMoney");
 
-        if (resultCode == RESULT_OK) {
-            //데이터 받기
-             result = data.getStringExtra("result");
-            Log.i("d", result);
+                adapter.setSpnetMoney(pos, result);
+
+            }
+        }
+        else if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+
+                listItem.setTitle(data.getStringExtra("place"));
+                listItem.settime(data.getStringExtra("time"));
+                listItem.setBudget(data.getStringExtra("budget"));
+                listItem.setSpentMoney(data.getStringExtra("spentmoney"));
+                listItem.setMemo(data.getStringExtra("memo"));
+                adapter.notifyDataSetChanged();
+
+
+            }
         }
     }
-
-     public String a(){
-        Log.i("d","실행");
-        String result = intentPop.getStringExtra("spentMoney");
-        startActivityForResult(intentPop, 1);
-
-
-        return result;
-    }
-
-
 }

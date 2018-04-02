@@ -34,7 +34,7 @@ public class Spentmoney_popup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("spentMoney", editText.getText());
+                intent.putExtra("spentMoney", editText.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
             }
