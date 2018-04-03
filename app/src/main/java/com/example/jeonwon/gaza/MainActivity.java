@@ -2,10 +2,16 @@ package com.example.jeonwon.gaza;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,19 +27,33 @@ public class MainActivity extends AppCompatActivity {
     protected static DBHelper dbHelper;
 
     private Button button, buttonMap;
-    private String planName[] = {"China"};
+    //private String planName[] = {"China"};
     private ListView listView;
     private ListViewPlanAdapter listViewPlanAdapter;
+    private Toolbar toolbar;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_Main);
+        setContentView(R.layout.activity_main);
 
         //Div is Creating DB
         dbHelper = new DBHelper(MainActivity.this, "GazaDB", null, 1);
         dbHelper.testDB();
         //Div is Creating DB
+
+        //툴바
+        toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);//뒤로가기 버튼
+        //actionBar.setHomeAsUpIndicator(R.drawable.round_button);//뒤로가기버튼 모양 커스텀
+
+
+        //툴바 설정
 
         button = (Button) findViewById(R.id.buttonMakePlan);
         buttonMap = (Button) findViewById(R.id.buttonMap);
@@ -49,12 +69,15 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.dbHelper = new DBHelper(this, "GazaDB", null, 1);
         }
 
-        List plan = MainActivity.dbHelper.getAllPlanData();
+        List<Plan> plan = MainActivity.dbHelper.getAllPlanData();
 
-
-        for (int i = 0; i < planName.length; i++) {
-            listViewPlanAdapter.addPlanItem(planName[i]);
+        for (int i = 0; i < plan.size(); i++) {
+            listViewPlanAdapter.addPlanItem(plan.get(i).getTitle());
         }
+
+        /*for (int i = 0; i < planName.length; i++) {
+            listViewPlanAdapter.addPlanItem(planName[i]);
+        }*/
 
 
         buttonMap.setOnClickListener(new View.OnClickListener() {
@@ -76,4 +99,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menuProfile:
+                //프로필 눌렀을때
+                Toast.makeText(this, "메뉴 프로필", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menuNotice:
+                //공지사항 눌렀을때
+                Toast.makeText(this, "메뉴 공지사항", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 }

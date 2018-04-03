@@ -27,7 +27,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         initView();
 
-        //startLoading();
+        startLoading();
 
 
     }
@@ -41,7 +41,7 @@ public class LoadingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 2000);
+        }, 1500);
     }
 
     private void initView() {

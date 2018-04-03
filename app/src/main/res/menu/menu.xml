@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuProfile"
+        android:title="프로필" />
+    <item android:title="----" />
+    <item
+        android:id="@+id/menuNotice"
+        android:title="공지사항" />
+</menu>

@@ -130,6 +130,7 @@ public class MakePlan extends AppCompatActivity{
                         intent.putExtra("PlanName", editPlanName.getText().toString());
                         intent.putExtra("Budget", editBudget.getText().toString());
                         intent.putExtra("People", editPeople.getValue());
+                        insertDB(editPlanName.getText().toString(), editBudget.getText().toString(), editPeople.getValue());
                         startActivity(intent);
                     }
                 } catch (ParseException e) {
@@ -146,6 +147,12 @@ public class MakePlan extends AppCompatActivity{
             }
         });
 
+    }
+
+    private void insertDB(String title, String budget, int people){
+        Plan plan = new Plan(title, budget, people);
+
+        MainActivity.dbHelper.addPlan(plan);
     }
 
 }

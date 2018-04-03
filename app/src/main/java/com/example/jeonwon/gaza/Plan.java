@@ -13,6 +13,15 @@ public class Plan {
     private Date startDate, endDate;
     private int people;
 
+    public Plan(){
+
+    }
+    public Plan(String title, String budget, int people){
+        this.title = title;
+        this.budget = budget;
+        this.people = people;
+    }
+
     //SET
     public void setTitle(String title){
         this.title = title;

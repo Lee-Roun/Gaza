@@ -77,16 +77,15 @@ public class DBHelper extends SQLiteOpenHelper {
         // 읽기 전용 DB 객체를 만든다.
         SQLiteDatabase db = getReadableDatabase();
 
-
         Cursor cursor = db.rawQuery(sb.toString(), null);
-        List plans = new ArrayList();
+        List<Plan> plans = new ArrayList();
         Plan plan = null; // moveToNext 다음에 데이터가 있으면 true 없으면 false
 
         while (cursor.moveToNext()) {
             plan = new Plan();
-            plan.setTitle((cursor.getString(0)));
-            plan.setPeople(cursor.getInt(1));
-            plan.setBudget(cursor.getString(2));
+            plan.setTitle((cursor.getString(1)));
+            plan.setPeople(cursor.getInt(2));
+            plan.setBudget(cursor.getString(3));
             plans.add(plan);
         }
         return plans;

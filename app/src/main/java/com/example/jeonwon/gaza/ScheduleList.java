@@ -49,7 +49,7 @@ public class ScheduleList extends AppCompatActivity {
         adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
 
         layout=(LinearLayout)findViewById(R.id.layout);
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         tripPeriod=intent.getLongExtra("TripPeriod",0);
         people=intent.getIntExtra("People",0);
 
@@ -118,6 +118,8 @@ public class ScheduleList extends AppCompatActivity {
             });
         }
     }
+
+
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
