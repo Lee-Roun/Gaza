@@ -67,9 +67,8 @@ public class ListViewPlanAdapter extends BaseAdapter{
     public void addPlanItem(String planName){
         //ListViewPlanItem item = new ListViewPlanItem();
         Plan item = new Plan();
-
         item.setTitle(planName);
-
         plans.add(item);
+        notifyDataSetChanged();
     }
 }

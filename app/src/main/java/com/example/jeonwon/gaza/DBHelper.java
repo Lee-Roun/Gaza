@@ -88,6 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
             plan.setBudget(cursor.getString(3));
             plans.add(plan);
         }
+
         return plans;
     }
 

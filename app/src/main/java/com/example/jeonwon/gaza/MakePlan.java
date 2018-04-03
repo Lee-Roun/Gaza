@@ -2,10 +2,12 @@ package com.example.jeonwon.gaza;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,11 +35,11 @@ public class MakePlan extends AppCompatActivity{
     NumberPicker editPeople; // 인원 수
     Button cancle,next;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.makeplan);
-
 
         NumberPicker edtPeople=(NumberPicker)findViewById(R.id.editPeople);
 
@@ -152,7 +154,9 @@ public class MakePlan extends AppCompatActivity{
     private void insertDB(String title, String budget, int people){
         Plan plan = new Plan(title, budget, people);
 
+
         MainActivity.dbHelper.addPlan(plan);
+
     }
 
 }

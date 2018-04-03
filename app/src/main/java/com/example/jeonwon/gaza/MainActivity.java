@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ListViewPlanAdapter listViewPlanAdapter;
     private Toolbar toolbar;
-
+    private List<Plan> plan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,15 +65,11 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listViewPlanAdapter);
 
         //if DB is not exist
-        if (MainActivity.dbHelper == null) {
-            MainActivity.dbHelper = new DBHelper(this, "GazaDB", null, 1);
+        if (dbHelper == null) {
+            dbHelper = new DBHelper(this, "GazaDB", null, 1);
         }
 
-        List<Plan> plan = MainActivity.dbHelper.getAllPlanData();
-
-        for (int i = 0; i < plan.size(); i++) {
-            listViewPlanAdapter.addPlanItem(plan.get(i).getTitle());
-        }
+        displayPlan();
 
         /*for (int i = 0; i < planName.length; i++) {
             listViewPlanAdapter.addPlanItem(planName[i]);
@@ -95,6 +91,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+    }
+
+    public void  displayPlan(){
+        plan = dbHelper.getAllPlanData();
+
+        for (int i = 0; i < plan.size(); i++) {
+            listViewPlanAdapter.addPlanItem(plan.get(i).getTitle());
+            listViewPlanAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
 
     }
