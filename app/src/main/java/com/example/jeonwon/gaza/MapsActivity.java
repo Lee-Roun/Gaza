@@ -1,6 +1,7 @@
 package com.example.jeonwon.gaza;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,12 +16,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Button button2;
     private static final int PLACE_PICKER_REQUEST = 1;
+    private ArrayList<LatLng> arrayPoints = new ArrayList<LatLng>(); // 누른 순서대로 리스트에 저장
+    PolylineOptions polylineOptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +68,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        MarkerOptions markerOptions = new MarkerOptions();
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker
+        // in Sydney and move the camera
+        LatLng Daegu = new LatLng(35.87222, 128.60250);
+        markerOptions.position(Daegu).title("대구");
+        mMap.addMarker(new MarkerOptions().position(Daegu));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Daegu)); // 어플 시작시 대구에 포커스
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.addMarker(markerOptions);
+
+                polylineOptions = new PolylineOptions();
+                polylineOptions.color(Color.RED);
+                polylineOptions.width(5);
+                arrayPoints.add(latLng);
+                polylineOptions.addAll(arrayPoints);
+                mMap.addPolyline(polylineOptions);
+            }
+        });
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 }
