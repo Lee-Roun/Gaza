@@ -30,16 +30,17 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class ScheduleList extends AppCompatActivity {
 
     //며칠짜리 여행인지 선택하면 생기는 클래스
-    int people;
+    int people,pos;
     long tripPeriod;
-    String budget,planName;
+    String budget,planName, result;
     public Intent adapterIntent;
     private int a;
     LinearLayout layout;
-    int pos;
     Intent intentPop;
-    String result;
     ListView temp;
+
+    TextView textViewBudget, textViewSpentMoney, textViewResultMoney;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,13 @@ public class ScheduleList extends AppCompatActivity {
         setContentView(R.layout.schedulelist);
 
         adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
+
+        textViewBudget = (TextView)findViewById(R.id.textBudget);
+        textViewSpentMoney = (TextView)findViewById(R.id.textSpentmoney);
+        textViewResultMoney = (TextView)findViewById(R.id.textRestMoney);
+
+        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
+
 
         layout=(LinearLayout)findViewById(R.id.layout);
         final Intent intent=getIntent();
@@ -111,7 +119,7 @@ public class ScheduleList extends AppCompatActivity {
             list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    adapter.addItem(null,Integer.toString(a++),"d","예싼","");
+                    adapter.addItem(null,Integer.toString(a++),"d","예산","");
                     setListViewHeightBasedOnChildren(listView);
                     adapter.notifyDataSetChanged();
                 }

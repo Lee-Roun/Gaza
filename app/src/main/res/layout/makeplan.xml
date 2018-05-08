@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBDED6">
+    android:background="#BBDED6"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/makeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="계획 세우기"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/guideline4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
@@ -37,53 +38,51 @@
         android:id="@+id/planName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="제목"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/people"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/guideline4" />
+        app:layout_constraintBottom_toBottomOf="@+id/editPlanName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editPlanName" />
 
     <TextView
         android:id="@+id/people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="62dp"
+        android:layout_marginStart="16dp"
         android:text="인원"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/budget"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/planName" />
+        app:layout_constraintBottom_toTopOf="@+id/budget"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/budget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="예산"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/period"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/people" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/editBudget"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="기간"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/guideline6"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/budget" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/startDay"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
@@ -96,112 +95,119 @@
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="67dp"
         android:background="@drawable/round_button"
         android:text="취소"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/next"
-        app:layout_constraintTop_toTopOf="@id/guideline6" />
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="67dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="67dp"
         android:background="@drawable/round_button"
         android:text="다음"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/cancel"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline6" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancel"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <EditText
         android:id="@+id/editPlanName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
         android:background="#FFFFFF"
         android:ems="10"
-        android:hint="즐거운 대구 여행"
+        android:hint="여행"
         android:inputType="text"
         android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/planName"
-        app:layout_constraintLeft_toRightOf="@id/guideline5"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/editPeople"
+        app:layout_constraintEnd_toEndOf="@+id/editBudget"
+        app:layout_constraintStart_toStartOf="@+id/editBudget" />
 
     <TextView
         android:id="@+id/startDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:background="#FFFFFF"
         android:ems="5"
-        android:text="첫 날"
+        android:text="첫째 날"
         android:textAlignment="textEnd"
         android:textSize="17dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/period"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toRightOf="@id/guideline5"
-        app:layout_constraintRight_toLeftOf="@id/textView" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="9dp"
         android:text="~"
         android:textColor="#FFFFFF"
         android:textSize="15dp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/period"
-        app:layout_constraintLeft_toRightOf="@id/startDay"
-        app:layout_constraintRight_toLeftOf="@id/endDay" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toStartOf="@+id/endDay" />
 
     <TextView
         android:id="@+id/endDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="55dp"
         android:background="#FFFFFF"
         android:ems="5"
         android:text="마지막 날"
         android:textAlignment="textEnd"
         android:textSize="17dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/period"
-        app:layout_constraintLeft_toRightOf="@id/textView"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <EditText
         android:id="@+id/editBudget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="37dp"
         android:background="#FFFFFF"
         android:ems="10"
-        android:hint="300000"
         android:inputType="number"
         android:textAlignment="textEnd"
         android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/budget"
-        app:layout_constraintLeft_toRightOf="@id/guideline5"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/editPeople" />
 
 
     <NumberPicker
         android:id="@+id/editPeople"
-        android:layout_width="262dp"
+        android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="132dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="132dp"
         android:background="#BBDED6"
-        app:layout_constraintBottom_toTopOf="@+id/editBudget"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toEndOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/editPlanName"
-        app:layout_constraintVertical_bias="0.566" />
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/endDay"
+        app:layout_constraintStart_toStartOf="@+id/editPlanName"
+        app:layout_constraintTop_toBottomOf="@+id/makeTitle" />
 
 </android.support.constraint.ConstraintLayout>

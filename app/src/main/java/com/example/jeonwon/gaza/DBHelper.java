@@ -29,14 +29,14 @@ public class DBHelper extends SQLiteOpenHelper {
         StringBuffer sb = new StringBuffer();
         //CREATE TABLE TEST_TABLE ( _ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, PEOPLE INTEGER, BUDGET TEXT,  START DATE, END DATE);
         sb.append(" CREATE TABLE PLAN_TABLE ( ");
-        sb.append(" _ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+        sb.append(" ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
         sb.append(" TITLE TEXT, ");
         sb.append(" PEOPLE INTEGER, ");
         sb.append(" BUDGET TEXT, ");
         sb.append(" START DATE, ");
         sb.append(" END DATE ) ");
 
-        //_ID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
+        //ID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
         //----------------------------------------------------------------//DB 테이블 모양
 
 
@@ -51,6 +51,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         Toast.makeText(context, "버전이 올라갔습니다.", Toast.LENGTH_SHORT).show();
 
+    }
+
+
+    public void deletePlan(Plan plan){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete("PLAN_TABLE", "TITLE ="+ plan.getTitle(), null);
     }
 
     public void addPlan(Plan plan) {
@@ -72,7 +79,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List getAllPlanData() {
         StringBuffer sb = new StringBuffer();
-        sb.append(" SELECT _ID, TITLE, PEOPLE, BUDGET FROM PLAN_TABLE ");
+        sb.append(" SELECT ID, TITLE, PEOPLE, BUDGET FROM PLAN_TABLE ");
 
         // 읽기 전용 DB 객체를 만든다.
         SQLiteDatabase db = getReadableDatabase();

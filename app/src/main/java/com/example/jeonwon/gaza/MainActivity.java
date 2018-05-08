@@ -1,14 +1,18 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -68,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
         if (dbHelper == null) {
             dbHelper = new DBHelper(this, "GazaDB", null, 1);
         }
+
+        //리스트뷰 길게 눌렀을때 리스너
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                return false;
+            }
+        });
+
 
         displayPlan();
 

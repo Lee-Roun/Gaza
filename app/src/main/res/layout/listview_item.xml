@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#00FF00"
+            android:background="#BBDED6"
             android:text="TextView"
             android:textSize="24dp" />
 
@@ -28,7 +28,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="a"
             android:textSize="16dp" />
     </LinearLayout>
 

@@ -28,26 +28,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <TextView
             android:id="@+id/textBudget"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="textBudget" />
 
         <TextView
             android:id="@+id/textUsedMoney"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="textUsedMoney" />
 
         <TextView
             android:id="@+id/textRestMoney"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="textRestMoney" />
     </LinearLayout>
 
 

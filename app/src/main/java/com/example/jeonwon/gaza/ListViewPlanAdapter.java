@@ -1,6 +1,10 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +57,28 @@ public class ListViewPlanAdapter extends BaseAdapter{
         Plan plan = plans.get(i);
 
         textView.setText(plan.getTitle());
+
+//다이얼로그 구현해야함, 롱클릭했을때
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+//                getA);
+//
+//        alertDialogBuilder.setTitle("일정 삭제");
+//        alertDialogBuilder.setMessage("일정을 삭제하시겠습니까?");
+//        alertDialogBuilder.setCancelable(false);
+//        alertDialogBuilder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        })
+//                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//        return false;
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
