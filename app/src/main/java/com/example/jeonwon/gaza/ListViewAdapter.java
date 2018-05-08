@@ -1,7 +1,6 @@
 package com.example.jeonwon.gaza;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +28,13 @@ public class ListViewAdapter extends BaseAdapter {
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
     private Context context;
     private ListViewSchedule mActivity;
-    private TextView tempSpent;
-    private TextView tempBudget;
+    private TextView spentMoney;
+    private   Intent intentPop;
 
     // ListViewAdapter의 생성자
     public ListViewAdapter(ListViewSchedule activity) {
         mActivity = activity;
-        //  spentMoney = mActivity.spentMoney;
+        spentMoney = mActivity.spentMoney;
     }
 
 
@@ -64,10 +62,7 @@ public class ListViewAdapter extends BaseAdapter {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
         TextView budgetTextView = (TextView) convertView.findViewById(R.id.budget);
-        TextView spentMoenyTextView = (TextView) convertView.findViewById(R.id.spentmoney);
-
-        tempSpent = (TextView) convertView.findViewById(R.id.spentmoney);
-        tempBudget = (TextView) convertView.findViewById(R.id.spentmoney);
+        TextView spentMoenyEditView = (TextView) convertView.findViewById(R.id.spentmoney);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
@@ -78,26 +73,33 @@ public class ListViewAdapter extends BaseAdapter {
         titleTextView.setText(listViewItem.getTitle());
         timeTextView.setText(listViewItem.gettime());
         budgetTextView.setText(listViewItem.getBudget());
-        spentMoenyTextView.setText(listViewItem.getSpentMoney());
+        //spentMoenyEditView.setText(listViewItem.getSpentMoney());
 
         //클릭이벤트 발생
-        //  titleTextView.setOnClickListener(new detail_form());
-        //  timeTextView.setOnClickListener(new detail_form());
-        //  budgetTextView.setOnLongClickListener(new modify_money());
-        //  spentMoenyTextView.setOnLongClickListener(new modify_money());
+        titleTextView.setOnClickListener(new detail_form());
+        timeTextView.setOnClickListener(new detail_form());
+        budgetTextView.setOnLongClickListener(new modify_money());
+        spentMoenyEditView.setOnLongClickListener(new modify_money());
 
         return convertView;
 
     }
 
+    class detail_form implements View.OnClickListener {
+        public void onClick(View v) {//세부창으로 이동 아직 데이터는 안줌
+           Log.i("d","e");
+            Intent adintent = mActivity.intent;
+            context.startActivity(adintent);
+        }
+    }
 
-    public void setSpnetMoney(int pos, String tempMoney) {
-
-        listViewItemList.get(pos).setSpentMoney(tempMoney);
-
-
-        notifyDataSetChanged();
-
+    class modify_money implements View.OnLongClickListener{
+        @Override
+        public boolean onLongClick(View v) {
+           Log.i("d","누름");
+          //  String a =mActivity.a();
+            return false;
+        }
     }
 
 
@@ -122,15 +124,9 @@ public class ListViewAdapter extends BaseAdapter {
         item.settime(desc);
         item.setBudget(budget);
         item.setSpentMoney(spentMoney);
+
         listViewItemList.add(item);
-    }
-
-
-
-
-
-
-    /*
+    }/*
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(resultCode==ListViewSchedule.RESULT_OK){
@@ -140,6 +136,7 @@ public class ListViewAdapter extends BaseAdapter {
         }
     }
 */
+
 
 
 }

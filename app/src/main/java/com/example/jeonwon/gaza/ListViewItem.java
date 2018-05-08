@@ -7,17 +7,17 @@ public class ListViewItem {
     private String timeStr ;
     private String budgetStr;
     private String spentMoneyStr;
-    private String memo;
 
     public void setTitle(String title) {
-        this.titleStr = title ;
+        titleStr = title ;
     }
-    public void settime(String time) { this.timeStr = time ;}
+    public void settime(String time) {timeStr = time ;}
     public void setBudget(String budget) {
-        this.budgetStr = budget ;
+        budgetStr = budget ;
     }
-    public void setSpentMoney(String spentMoney) { this.spentMoneyStr = spentMoney ;}
-    public void setMemo(String memo) { this.memo = memo ;}
+    public void setSpentMoney(String spentMoney) {
+        spentMoneyStr = spentMoney ;
+    }
 
 
     public String getTitle() {
@@ -29,9 +29,6 @@ public class ListViewItem {
     }
     public String getSpentMoney() {
         return this.spentMoneyStr ;
-    }
-    public String getMemo() {
-        return this.memo ;
     }
 }
 
