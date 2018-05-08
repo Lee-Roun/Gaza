@@ -29,15 +29,12 @@ public class ListViewAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
     private Context context;
-    private ListViewSchedule mActivity;
+    /*private ListViewSchedule mActivity;
     private TextView tempSpent;
-    private TextView tempBudget;
+    private TextView tempBudget;*/
 
     // ListViewAdapter의 생성자
-    public ListViewAdapter(ListViewSchedule activity) {
-        mActivity = activity;
-        //  spentMoney = mActivity.spentMoney;
-    }
+     public ListViewAdapter( ) {}
 
 
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
@@ -66,13 +63,13 @@ public class ListViewAdapter extends BaseAdapter {
         TextView budgetTextView = (TextView) convertView.findViewById(R.id.budget);
         TextView spentMoenyTextView = (TextView) convertView.findViewById(R.id.spentmoney);
 
-        tempSpent = (TextView) convertView.findViewById(R.id.spentmoney);
-        tempBudget = (TextView) convertView.findViewById(R.id.spentmoney);
+        /*tempSpent = (TextView) convertView.findViewById(R.id.spentmoney);
+        tempBudget = (TextView) convertView.findViewById(R.id.spentmoney);*/
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
 
-
+        
         // 아이템 내 각 위젯에 데이터 반영
 
         titleTextView.setText(listViewItem.getTitle());
@@ -90,12 +87,9 @@ public class ListViewAdapter extends BaseAdapter {
 
     }
 
-
     public void setSpnetMoney(int pos, String tempMoney) {
 
         listViewItemList.get(pos).setSpentMoney(tempMoney);
-
-
         notifyDataSetChanged();
 
     }
@@ -125,21 +119,6 @@ public class ListViewAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
-
-
-
-
-
-    /*
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if(resultCode==ListViewSchedule.RESULT_OK){
-            //데이터 받기
-            String result = data.getStringExtra("result");
-            spentMoney.setText(result);
-        }
-    }
-*/
 
 
 }

@@ -3,6 +3,7 @@ package com.example.jeonwon.gaza;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -35,7 +36,8 @@ public class ListViewSchedule extends Activity {
         intentPop = new Intent(getApplicationContext(), Spentmoney_popup.class);
 
         // Adapter 생성
-        adapter = new ListViewAdapter(this);
+        //adapter = new ListViewAdapter(this);
+        adapter = new ListViewAdapter();
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,13 +45,18 @@ public class ListViewSchedule extends Activity {
                 //  startActivity(intent);
                 adapter.addItem(null, "", "", "예산", "22");
                 adapter.notifyDataSetChanged();
-//                Toast.makeText(ListViewSchedule.this, "추가 창 넘어가기", Toast.LENGTH_SHORT).show();
             }
         });
 
 
         // 리스트뷰 참조 및 Adapter달기
         listView = (ListView) findViewById(R.id.listview);
+        listView.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                return false;
+            }
+        });
         listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {//롱 클릭
