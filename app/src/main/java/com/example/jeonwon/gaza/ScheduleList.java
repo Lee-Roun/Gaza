@@ -15,6 +15,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -28,21 +30,21 @@ public class ScheduleList extends AppCompatActivity {
     int people,pos;
     long tripPeriod;
     String budget,planName, result;
-//    public Intent adapterIntent;
     private int a;
     LinearLayout layout;
-    Intent intentPop;
+    Intent intentPop, adapterIntent;
     ListView temp;
 
     TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
-
+    ListViewItem listItem; // 세부창 넘어갈때 아이템 하나 저장 변수
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulelist);
 
-//        adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
+        adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
+        intentPop=new Intent(getApplicationContext(),Spentmoney_popup.class);
 
         textViewBudget = (TextView)findViewById(R.id.textBudget);
         textViewUsedMoney = (TextView)findViewById(R.id.textUsedMoney);
@@ -56,7 +58,6 @@ public class ScheduleList extends AppCompatActivity {
         tripPeriod=intent.getLongExtra("TripPeriod",0);
         people=intent.getIntExtra("People",0);
 
-        intentPop=new Intent(getApplicationContext(),Spentmoney_popup.class);
 
 
 
@@ -76,9 +77,10 @@ public class ScheduleList extends AppCompatActivity {
 
 
             listView.setAdapter(adapter);
+
             listView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT,WRAP_CONTENT));
 
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {//롱클릭
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     pos=position;
@@ -86,6 +88,26 @@ public class ScheduleList extends AppCompatActivity {
                     temp= (ListView) parent;
 
                     return false;
+                }
+            });
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//세부창 보기
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    ListViewAdapter Atemp = (ListViewAdapter) parent.getAdapter(); //어댑터 접근
+                    /*ListView temp = (ListView) parent; //
+                    ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();*/
+                    listItem = (ListViewItem) Atemp.getItem(position); //postioion 위치의 아이템 가져옴
+
+                    adapterIntent.putExtra("place", listItem.getTitle().toString());
+                    adapterIntent.putExtra("time", listItem.gettime().toString());
+                    adapterIntent.putExtra("budget", listItem.getBudget().toString());
+                    adapterIntent.putExtra("spentmoney", listItem.getSpentMoney().toString());
+                    adapterIntent.putExtra("memo", listItem.getMemo());
+                    startActivityForResult(adapterIntent, 2);
+
                 }
             });
 
@@ -154,6 +176,18 @@ public class ScheduleList extends AppCompatActivity {
                 result = data.getStringExtra("spentMoney");
                 textViewUsedMoney.setText(result);
                 adapter.setSpnetMoney(pos, result);
+            }
+        }else if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+
+                listItem.setTitle(data.getStringExtra("place"));
+                listItem.settime(data.getStringExtra("time"));
+                listItem.setBudget(data.getStringExtra("budget"));
+                listItem.setSpentMoney(data.getStringExtra("spentmoney"));
+                listItem.setMemo(data.getStringExtra("memo"));
+                adapter.notifyDataSetChanged();
+
+
             }
         }
     }
