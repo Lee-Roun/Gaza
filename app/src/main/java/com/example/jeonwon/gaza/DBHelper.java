@@ -26,22 +26,33 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // String 보다 StringBuffer가 Query 만들기 편하다.
-        StringBuffer sb = new StringBuffer();
+        StringBuffer createSQL1 = new StringBuffer();
         //CREATE TABLE TEST_TABLE ( _ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, PEOPLE INTEGER, BUDGET TEXT,  START DATE, END DATE);
-        sb.append(" CREATE TABLE PLAN_TABLE ( ");
-        sb.append(" ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
-        sb.append(" TITLE TEXT, ");
-        sb.append(" PEOPLE INTEGER, ");
-        sb.append(" BUDGET TEXT, ");
-        sb.append(" START DATE, ");
-        sb.append(" END DATE ) ");
-
+        createSQL1.append(" CREATE TABLE PLAN_TABLE ( ");
+        createSQL1.append(" ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+        createSQL1.append(" TITLE TEXT, ");
+        createSQL1.append(" PEOPLE INTEGER, ");
+        createSQL1.append(" BUDGET TEXT, ");
+        createSQL1.append(" START DATE, ");
+        createSQL1.append(" END DATE ) ");
         //ID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
         //----------------------------------------------------------------//DB 테이블 모양
 
+        StringBuffer createSQL2 = new StringBuffer();
+        //CREATE TABLE TEST_TABLE ( _ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, PEOPLE INTEGER, BUDGET TEXT,  START DATE, END DATE);
+        createSQL2.append(" CREATE TABLE PLAN_TABLE ( ");
+        createSQL2.append(" ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+        createSQL2.append(" TITLE TEXT, ");
+        createSQL2.append(" PEOPLE INTEGER, ");
+        createSQL2.append(" BUDGET TEXT, ");
+        createSQL2.append(" START DATE, ");
+        createSQL2.append(" END DATE ) ");
+        //ID |   NDAY   |   NLIST    |   LOCATION  |   TIME  |   LISTBUDGET  |   SPENTMONEY  |    MEMO   |
+        //---------------------------------------------------//DB 테이블 모양
 
         // SQLite Database로 쿼리 실행
-        sqLiteDatabase.execSQL(sb.toString());
+        sqLiteDatabase.execSQL(createSQL1.toString());
+        sqLiteDatabase.execSQL(createSQL2.toString());
 
         Toast.makeText(context, "Table 생성완료", Toast.LENGTH_SHORT).show();
 

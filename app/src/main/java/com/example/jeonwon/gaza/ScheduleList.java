@@ -32,13 +32,8 @@ public class ScheduleList extends AppCompatActivity {
     String result;
     private int a;
     LinearLayout layout;
-<<<<<<< HEAD
     Intent intentPop,intentMake, adapterIntent;
-    ListView temp;
-=======
-    Intent intentPop, adapterIntent;
     ListView temp; //임시 어댑터
->>>>>>> e5df76b76fb91d4444d96852c4cd4fe9db947698
 
     TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
     ListViewItem listItem; // 세부창 넘어갈때 아이템 하나 저장 변수
@@ -107,12 +102,9 @@ public class ScheduleList extends AppCompatActivity {
 
                     temp = (ListView) parent;
                     ListViewAdapter Atemp = (ListViewAdapter) parent.getAdapter(); //어댑터 접근
-<<<<<<< HEAD
                     temp = (ListView) parent;
                     //ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();
-=======
 //                    ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();
->>>>>>> e5df76b76fb91d4444d96852c4cd4fe9db947698
                     listItem = (ListViewItem) Atemp.getItem(position); //postioion 위치의 아이템 가져옴
 
                     adapterIntent.putExtra("place", listItem.getTitle().toString());
