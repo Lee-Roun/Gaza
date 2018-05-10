@@ -67,8 +67,20 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listViewPlan);
 
         listView.setAdapter(listViewPlanAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(getApplicationContext(), position+1 + "번째 리스트가 클릭됨", Toast.LENGTH_SHORT).show();
+            }
+        });
+       /* listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return false;
+            }
+        });*/
 
-        //if DB is not exist
+            //if DB is not exist
         if (dbHelper == null) {
             dbHelper = new DBHelper(this, "GazaDB", null, 1);
         }

@@ -9,16 +9,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -33,13 +28,13 @@ public class ScheduleList extends AppCompatActivity {
     int people,pos;
     long tripPeriod;
     String budget,planName, result;
-    public Intent adapterIntent;
+//    public Intent adapterIntent;
     private int a;
     LinearLayout layout;
     Intent intentPop;
     ListView temp;
 
-    TextView textViewBudget, textViewSpentMoney, textViewResultMoney;
+    TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
 
 
     @Override
@@ -47,13 +42,13 @@ public class ScheduleList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulelist);
 
-        adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
+//        adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
 
         textViewBudget = (TextView)findViewById(R.id.textBudget);
-        textViewSpentMoney = (TextView)findViewById(R.id.textSpentmoney);
+        textViewUsedMoney = (TextView)findViewById(R.id.textUsedMoney);
         textViewResultMoney = (TextView)findViewById(R.id.textRestMoney);
 
-        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
+//        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
 
 
         layout=(LinearLayout)findViewById(R.id.layout);
@@ -93,6 +88,7 @@ public class ScheduleList extends AppCompatActivity {
                     return false;
                 }
             });
+
             layout.addView(listView);
 
             LinearLayout btnLayout=new LinearLayout(this);
@@ -156,7 +152,7 @@ public class ScheduleList extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 //데이터 받기
                 result = data.getStringExtra("spentMoney");
-
+                textViewUsedMoney.setText(result);
                 adapter.setSpnetMoney(pos, result);
             }
         }

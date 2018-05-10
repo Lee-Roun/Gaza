@@ -80,12 +80,7 @@ public class ListViewPlanAdapter extends BaseAdapter{
 //
 //        return false;
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, (pos + 1) + "번째 리스트가 클릭됨", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         return view;
     }
