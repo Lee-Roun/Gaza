@@ -32,23 +32,29 @@
         <TextView
             android:id="@+id/textBudget"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="textBudget" />
+            android:text="총 예산"
+            android:textSize="20dp"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/textUsedMoney"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="textUsedMoney" />
+            android:text="사용한 돈"
+            android:textSize="20dp"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/textRestMoney"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="textRestMoney" />
+            android:text="남은 돈"
+            android:textSize="20dp"
+            android:gravity="center"/>
     </LinearLayout>
 
 

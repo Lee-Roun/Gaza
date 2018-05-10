@@ -5,20 +5,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -30,17 +28,17 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class ScheduleList extends AppCompatActivity {
 
     //며칠짜리 여행인지 선택하면 생기는 클래스
-    int people,pos;
-    long tripPeriod;
-    String budget,planName, result;
-    public Intent adapterIntent;
+    int pos;
+    String result;
     private int a;
     LinearLayout layout;
-    Intent intentPop;
-    ListView temp;
+    Intent intentPop,intentMake, adapterIntent;
+    ListView temp; //임시 어댑터
 
-    TextView textViewBudget, textViewSpentMoney, textViewResultMoney;
+    TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
+    ListViewItem listItem; // 세부창 넘어갈때 아이템 하나 저장 변수
 
+    //어뎁터 컬랙션
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,21 +46,24 @@ public class ScheduleList extends AppCompatActivity {
         setContentView(R.layout.schedulelist);
 
         adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
-
-        textViewBudget = (TextView)findViewById(R.id.textBudget);
-        textViewSpentMoney = (TextView)findViewById(R.id.textSpentmoney);
-        textViewResultMoney = (TextView)findViewById(R.id.textRestMoney);
-
-        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
-
-
-        layout=(LinearLayout)findViewById(R.id.layout);
-        final Intent intent=getIntent();
-        tripPeriod=intent.getLongExtra("TripPeriod",0);
-        people=intent.getIntExtra("People",0);
-
         intentPop=new Intent(getApplicationContext(),Spentmoney_popup.class);
 
+        textViewBudget = (TextView)findViewById(R.id.textBudget);
+        textViewUsedMoney = (TextView)findViewById(R.id.textUsedMoney);
+        textViewResultMoney = (TextView)findViewById(R.id.textRestMoney);
+
+        layout=(LinearLayout)findViewById(R.id.layout);
+//        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
+
+
+        intentMake=getIntent();
+        long tripPeriod;
+        tripPeriod=intentMake.getLongExtra("TripPeriod",0);
+        String budget;
+        budget=intentMake.getStringExtra("Budget");
+        textViewBudget.setText("총 예산\n"+budget);
+
+        Log.i("gaza","ok");
 
 
         //N일차 만큼 리스트 만드는 루프
@@ -81,18 +82,41 @@ public class ScheduleList extends AppCompatActivity {
 
 
             listView.setAdapter(adapter);
+
             listView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT,WRAP_CONTENT));
 
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {//롱클릭
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     pos=position;
                     startActivityForResult(intentPop, 1);
                     temp= (ListView) parent;
 
-                    return false;
+                    return true;
                 }
             });
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//세부창 보기
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    temp = (ListView) parent;
+                    ListViewAdapter Atemp = (ListViewAdapter) parent.getAdapter(); //어댑터 접근
+                    temp = (ListView) parent;
+                    //ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();
+//                    ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();
+                    listItem = (ListViewItem) Atemp.getItem(position); //postioion 위치의 아이템 가져옴
+
+                    adapterIntent.putExtra("place", listItem.getTitle().toString());
+                    adapterIntent.putExtra("time", listItem.gettime().toString());
+                    adapterIntent.putExtra("budget", listItem.getBudget().toString());
+                    adapterIntent.putExtra("spentmoney", listItem.getSpentMoney().toString());
+                    adapterIntent.putExtra("memo", listItem.getMemo());
+                    startActivityForResult(adapterIntent, 2);
+
+                }
+            });
+
             layout.addView(listView);
 
             LinearLayout btnLayout=new LinearLayout(this);
@@ -156,8 +180,20 @@ public class ScheduleList extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 //데이터 받기
                 result = data.getStringExtra("spentMoney");
-
+                textViewUsedMoney.setText(result);
                 adapter.setSpnetMoney(pos, result);
+            }
+        }else if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+
+                listItem.setTitle(data.getStringExtra("place"));
+                listItem.settime(data.getStringExtra("time"));
+                listItem.setBudget(data.getStringExtra("budget"));
+                listItem.setSpentMoney(data.getStringExtra("spentmoney"));
+                listItem.setMemo(data.getStringExtra("memo"));
+                adapter.notifyDataSetChanged();
+
+
             }
         }
     }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -133,6 +134,7 @@ public class MakePlan extends AppCompatActivity{
                         intent.putExtra("Budget", editBudget.getText().toString());
                         intent.putExtra("People", editPeople.getValue());
                         insertDB(editPlanName.getText().toString(), editBudget.getText().toString(), editPeople.getValue());
+                        Log.i("gaza","ㅎㅇ");
                         startActivity(intent);
                     }
                 } catch (ParseException e) {
