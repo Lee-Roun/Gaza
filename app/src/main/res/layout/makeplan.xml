@@ -11,203 +11,192 @@
         android:id="@+id/makeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="17dp"
         android:text="계획 세우기"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editPlanName"
+        app:layout_constraintStart_toStartOf="@+id/editPlanName"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="57dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="70dp" />
 
     <TextView
         android:id="@+id/planName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="133dp"
         android:text="제목"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/editPlanName"
+        app:layout_constraintEnd_toEndOf="@+id/people"
+        app:layout_constraintEnd_toStartOf="@+id/editPlanName"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editPlanName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="62dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="69dp"
         android:text="인원"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/budget"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/budget"
+        app:layout_constraintEnd_toStartOf="@+id/editPeople"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/planName" />
 
     <TextView
         android:id="@+id/budget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
         android:text="예산"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editBudget"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/period"
+        app:layout_constraintEnd_toStartOf="@+id/editBudget"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/people" />
 
     <TextView
         android:id="@+id/period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="49dp"
         android:text="기간"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/startDay"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="477dp" />
+        app:layout_constraintEnd_toStartOf="@+id/startDay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budget" />
 
     <Button
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="67dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="67dp"
         android:background="@drawable/round_button"
         android:text="취소"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintBottom_toBottomOf="@+id/next"
+        app:layout_constraintEnd_toStartOf="@+id/next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/next"
+        app:layout_constraintVertical_bias="0.14999998" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="67dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="67dp"
         android:background="@drawable/round_button"
         android:text="다음"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cancel"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintTop_toBottomOf="@+id/endDay" />
 
     <EditText
         android:id="@+id/editPlanName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginEnd="21dp"
         android:background="#FFFFFF"
         android:ems="10"
         android:hint="여행"
         android:inputType="text"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/editPeople"
-        app:layout_constraintEnd_toEndOf="@+id/editBudget"
-        app:layout_constraintStart_toStartOf="@+id/editBudget" />
+        app:layout_constraintBottom_toBottomOf="@+id/planName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/planName"
+        app:layout_constraintTop_toTopOf="@+id/planName" />
 
     <TextView
         android:id="@+id/startDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:background="#FFFFFF"
         android:ems="5"
         android:text="첫째 날"
         android:textAlignment="textEnd"
         android:textSize="17dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-        app:layout_constraintEnd_toStartOf="@+id/textView" />
+        app:layout_constraintBottom_toBottomOf="@+id/period"
+        app:layout_constraintStart_toStartOf="@+id/editBudget"
+        app:layout_constraintTop_toTopOf="@+id/period" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginStart="12dp"
         android:text="~"
         android:textColor="#FFFFFF"
         android:textSize="15dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/endDay" />
+        app:layout_constraintBottom_toBottomOf="@+id/startDay"
+        app:layout_constraintStart_toEndOf="@+id/startDay"
+        app:layout_constraintTop_toTopOf="@+id/startDay" />
 
     <TextView
         android:id="@+id/endDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="55dp"
         android:background="#FFFFFF"
         android:ems="5"
         android:text="마지막 날"
         android:textAlignment="textEnd"
         android:textSize="17dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/editBudget"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
 
     <EditText
         android:id="@+id/editBudget"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="37dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="21dp"
         android:background="#FFFFFF"
         android:ems="10"
         android:inputType="number"
         android:textAlignment="textEnd"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/budget"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/editPeople" />
+        app:layout_constraintStart_toEndOf="@+id/budget"
+        app:layout_constraintTop_toTopOf="@+id/budget" />
 
 
     <NumberPicker
         android:id="@+id/editPeople"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="132dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginEnd="103dp"
         android:background="#BBDED6"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/endDay"
-        app:layout_constraintStart_toStartOf="@+id/editPlanName"
-        app:layout_constraintTop_toBottomOf="@+id/makeTitle" />
+        app:layout_constraintBottom_toBottomOf="@+id/people"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/people"
+        app:layout_constraintTop_toTopOf="@+id/people" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancel"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,11 +42,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i("DB :","DB생성 전");
         //Div is Creating DB
         dbHelper = new DBHelper(MainActivity.this, "GazaDB", null, 1);
-        dbHelper.testDB();
-        //Div is Creating DB
+        Log.i("DB :","DB생성 완료함");
 
+//        dbHelper.testDB();
+        //Div is Creating DB
+        //if DB is not exist
+        if (dbHelper == null) {
+            dbHelper = new DBHelper(this, "GazaDB", null, 1);
+        }
         //툴바
         toolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -80,10 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-            //if DB is not exist
-        if (dbHelper == null) {
-            dbHelper = new DBHelper(this, "GazaDB", null, 1);
-        }
+
 
         //리스트뷰 길게 눌렀을때 리스너
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
