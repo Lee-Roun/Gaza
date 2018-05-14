@@ -9,14 +9,14 @@ import java.sql.Date;
 
 public class Plan {
 
-    private String title, budget;
-    private Date startDate, endDate;
-    private int people;
+    private String title;
+    private String startDate, endDate;
+    private String people, budget;
 
     public Plan(){
 
     }
-    public Plan(String title, String budget, int people){
+    public Plan(String title, String budget, String people){
         this.title = title;
         this.budget = budget;
         this.people = people;
@@ -31,15 +31,15 @@ public class Plan {
         this.budget = budget;
     }
 
-    public void setPeople(int people) {
+    public void setPeople(String people) {
         this.people = people;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -53,15 +53,15 @@ public class Plan {
         return this.budget;
     }
 
-    public int getPeople() {
+    public String getPeople() {
         return this.people;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return this.startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return this.endDate;
     }
 
