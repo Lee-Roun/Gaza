@@ -68,4 +68,9 @@ public class ListViewPlanAdapter extends BaseAdapter{
         plans.add(item);
         notifyDataSetChanged();
     }
+    public void deleteAll(){
+        plans.removeAll(plans);
+        notifyDataSetChanged();
+    }
+
 }

@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayPlan() {
+        listViewPlanAdapter.deleteAll();
         plan = dbHelper.getAllPlanData();
 
         for (int i = 0; i < plan.size(); i++) {
@@ -162,8 +163,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQESTCODE){
             if(resultCode == Activity.RESULT_OK){
-                plan = dbHelper.getAllPlanData();
-
+                displayPlan();
             }
         }
 

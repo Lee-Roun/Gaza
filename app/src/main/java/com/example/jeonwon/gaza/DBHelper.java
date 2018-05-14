@@ -78,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deletePlan(Plan plan){
         SQLiteDatabase db = getWritableDatabase();
 
-        db.delete("PLAN_TABLE", "PID ="+ plan.getPid(), null);
+        db.delete("P_TABLE", "PID ="+ plan.getPid(), null);
 
     }
 
