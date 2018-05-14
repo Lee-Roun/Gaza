@@ -11,12 +11,12 @@ public class Plan {
 
     private String title;
     private String startDate, endDate;
-    private String people, budget;
+    private int people, budget, PID;
 
     public Plan(){
 
     }
-    public Plan(String title, String budget, String people){
+    public Plan(String title, int budget, int people){
         this.title = title;
         this.budget = budget;
         this.people = people;
@@ -27,12 +27,15 @@ public class Plan {
         this.title = title;
     }
 
-    public void setBudget(String budget){
+    public void setBudget(int budget){
         this.budget = budget;
     }
 
-    public void setPeople(String people) {
+    public void setPeople(int people) {
         this.people = people;
+    }
+    public void setPid(int PID) {
+        this.PID = PID;
     }
 
     public void setStartDate(String startDate) {
@@ -49,12 +52,15 @@ public class Plan {
         return this.title;
     }
 
-    public String getBudget(){
+    public int getBudget(){
         return this.budget;
     }
 
-    public String getPeople() {
+    public int getPeople() {
         return this.people;
+    }
+    public int getPid() {
+        return this.PID;
     }
 
     public String getStartDate() {

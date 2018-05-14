@@ -29,29 +29,31 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // String 보다 StringBuffer가 Query 만들기 편하다.
         StringBuffer createSQL1 = new StringBuffer();
-        //CREATE TABLE TEST_TABLE ( _ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, PEOPLE INTEGER, BUDGET TEXT,  START DATE, END DATE);
         createSQL1.append(" CREATE TABLE P_TABLE ( ");
-        createSQL1.append(" ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+        createSQL1.append(" PID INTEGER PRIMARY KEY AUTOINCREMENT, ");
         createSQL1.append(" TITLE TEXT, ");
-        createSQL1.append(" PEOPLE TEXT, ");
-        createSQL1.append(" BUDGET TEXT, ");
+        createSQL1.append(" PEOPLE INTEGER, ");
+        createSQL1.append(" BUDGET INTEGER, ");
         createSQL1.append(" START TEXT, ");
         createSQL1.append(" END TEXT ) ");
-        //ID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
+        //PID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
         //----------------------------------------------------------------//DB 테이블 모양
 
         StringBuffer createSQL2 = new StringBuffer();
-        //CREATE TABLE TEST_TABLE ( _ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, PEOPLE INTEGER, BUDGET TEXT,  START DATE, END DATE);
         createSQL2.append(" CREATE TABLE L_TABLE ( ");
-        createSQL2.append(" ID INTEGER AUTOINCREMENT, ");
-        createSQL2.append(" NDAY INTEGER, ");
-        createSQL2.append(" NLIST INTEGER, ");
+        createSQL2.append(" LID INTEGER AUTOINCREMENT, ");
+        createSQL2.append(" NDAY INTEGER PRIMARY KEY, ");
+        createSQL2.append(" NLIST INTEGER PRIMARY KEY, ");
         createSQL2.append(" LOCATION TEXT, ");
         createSQL2.append(" TIME DATE, ");
-        createSQL2.append(" SPENTMONEY TEXT, ");
+        createSQL2.append(" SPENTMONEY INTEGER, ");
         createSQL2.append(" MEMO TEXT, ");
-        createSQL2.append(" LISTBUDGET TEXT, PRIMARY KEY(NDAY, NLIST), FOREIGN KEY(ID) REFERENCES PLAN_TABLE(ID) ON DELETE CASCADE) ");
-        //ID* |   NDAY*   |   NLIST*    |   LOCATION  |   TIME  |   LISTBUDGET  |   SPENTMONEY  |    MEMO   |
+        createSQL2.append(" LISTBUDGET INTEGER, ");
+        createSQL2.append(" FOREIGN KEY(LID) REFERENCES PLAN_TABLE(PID) ON DELETE CASCADE ) ");
+
+
+
+        //LID* |   NDAY*   |   NLIST*    |   LOCATION  |   TIME  |   LISTBUDGET  |   SPENTMONEY  |    MEMO   |
         //---------------------------------------------------//DB 테이블 모양
 
         // SQLite Database로 쿼리 실행
@@ -74,7 +76,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deletePlan(Plan plan){
         SQLiteDatabase db = getWritableDatabase();
 
-        db.delete("PLAN_TABLE", "TITLE ="+ plan.getTitle(), null);
+        db.delete("PLAN_TABLE", "PID ="+ plan.getPid(), null);
+
     }
 
     public void addPlan(Plan plan) {
@@ -96,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List getAllPlanData() {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT ID, TITLE, PEOPLE, BUDGET, START, END FROM P_TABLE");
+        sb.append("SELECT * FROM P_TABLE");
 
         // 읽기 전용 DB 객체를 만든다.
         SQLiteDatabase db = getReadableDatabase();
@@ -108,9 +111,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while (cursor.moveToNext()) {
             plan = new Plan();
-            plan.setTitle((cursor.getString(1)));
-            plan.setPeople(cursor.getString(2));
-            plan.setBudget(cursor.getString(3));
+            plan.setPid(cursor.getInt(0));
+            plan.setTitle(cursor.getString(1));
+            plan.setPeople(cursor.getInt(2));
+            plan.setBudget(cursor.getInt(3));
             plan.setStartDate(cursor.getString(4));
             plan.setEndDate(cursor.getString(5));
             plans.add(plan);

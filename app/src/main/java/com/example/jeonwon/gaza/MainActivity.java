@@ -37,15 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private ListViewPlanAdapter listViewPlanAdapter;
     private Toolbar toolbar;
     private List<Plan> plan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i("DB :","DB생성 전");
+        Log.i("DB :", "DB생성 전");
         //Div is Creating DB
         dbHelper = new DBHelper(MainActivity.this, "GazaDB", null, 1);
-        Log.i("DB :","DB생성 완료함");
+        Log.i("DB :", "DB생성 완료함");
 
 //        dbHelper.testDB();
         //Div is Creating DB
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             dbHelper = new DBHelper(this, "GazaDB", null, 1);
         }
         //툴바
-        toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -77,16 +78,35 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getApplicationContext(), position+1 + "번째 리스트가 클릭됨", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), position + 1 + "번째 리스트가 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
-       /* listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
-            }
-        });*/
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
+                alertDialogBuilder.setTitle("일정 삭제");
+                alertDialogBuilder.setMessage("일정을 삭제하시겠습니까?");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dbHelper.deletePlan(plan.get(position));
+                        displayPlan();
+                    }
+                })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+
+                return true;
+            }
+        });
 
 
         //리스트뷰 길게 눌렀을때 리스너
@@ -125,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void  displayPlan(){
+    public void displayPlan() {
         plan = dbHelper.getAllPlanData();
 
         for (int i = 0; i < plan.size(); i++) {
@@ -152,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuProfile:
                 //프로필 눌렀을때
                 Toast.makeText(this, "메뉴 프로필", Toast.LENGTH_SHORT).show();
