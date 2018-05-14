@@ -54,7 +54,6 @@ public class DBHelper extends SQLiteOpenHelper {
         createSQL2.append(" PRIMARY KEY(NDAY, NLIST), FOREIGN KEY(LID) REFERENCES P_TABLE(PID) ON DELETE CASCADE ) ");
 
 
-
         //LID* |   NDAY*   |   NLIST*    |   LOCATION  |   TIME  |   LISTBUDGET  |   SPENTMONEY  |    MEMO   |
         //---------------------------------------------------//DB 테이블 모양
 

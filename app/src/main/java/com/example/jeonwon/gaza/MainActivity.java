@@ -86,39 +86,36 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                Log.i("Dialog :", "롱클릭 다이얼로그");
 
-                alertDialogBuilder.setTitle("일정 삭제");
-                alertDialogBuilder.setMessage("일정을 삭제하시겠습니까?");
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dbHelper.deletePlan(plan.get(position));
-                        displayPlan();
-                    }
-                })
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
 
-                            }
-                        });
+                alertBuilder.setTitle("삭제");
+                alertBuilder.setMessage("일정을 삭제하시겠습니까?")
+                        .setCancelable(false)
+                        .setPositiveButton("삭제",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dbHelper.deletePlan(plan.get(position));
+                                        displayPlan();
+                                    }
+                                })
+                        .setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
 
-
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.show();
                 return true;
             }
         });
 
 
-        //리스트뷰 길게 눌렀을때 리스너
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                return false;
-            }
-        });
 
 
         displayPlan();
