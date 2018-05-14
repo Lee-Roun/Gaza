@@ -34,8 +34,8 @@ public class DBHelper extends SQLiteOpenHelper {
         createSQL1.append(" TITLE TEXT, ");
         createSQL1.append(" PEOPLE INTEGER, ");
         createSQL1.append(" BUDGET INTEGER, ");
-        createSQL1.append(" START TEXT, ");
-        createSQL1.append(" END TEXT ) ");
+        createSQL1.append(" STARTDAY TEXT, ");
+        createSQL1.append(" ENDDAY TEXT ) ");
         //PID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
         //----------------------------------------------------------------//DB 테이블 모양
 
@@ -45,7 +45,8 @@ public class DBHelper extends SQLiteOpenHelper {
         createSQL2.append(" NDAY INTEGER NOT NULL, ");
         createSQL2.append(" NLIST INTEGER NOT NULL, ");
         createSQL2.append(" LOCATION TEXT, ");
-        createSQL2.append(" TIME DATE, ");
+        createSQL2.append(" STARTTIME DATE, ");
+        createSQL2.append(" ENDTIME DATE, ");
         createSQL2.append(" SPENTMONEY INTEGER, ");
         createSQL2.append(" MEMO TEXT, ");
         createSQL2.append(" LISTBUDGET INTEGER, ");
@@ -61,23 +62,23 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(createSQL1.toString());
         sqLiteDatabase.execSQL(createSQL2.toString());
 
-        Toast.makeText(context, "Table 2개 생성완료", Toast.LENGTH_SHORT).show();
-        Log.i("Table 생성","Table 생성 완료함");
+//        Toast.makeText(context, "Table 2개 생성완료", Toast.LENGTH_SHORT).show();
+        Log.i("Table 생성", "Table 생성 완료함");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 //        Toast.makeText(context, "버전이 올라갔습니다.", Toast.LENGTH_SHORT).show();
-        Log.i("Upgrade","Upgrade 완료");
+        Log.i("Upgrade", "Upgrade 완료");
 
     }
 
 
-    public void deletePlan(Plan plan){
+    public void deletePlan(Plan plan) {
         SQLiteDatabase db = getWritableDatabase();
 
-        db.delete("P_TABLE", "PID ="+ plan.getPid(), null);
+        db.delete("P_TABLE", "PID =" + plan.getPid(), null);
 
     }
 
@@ -86,14 +87,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         StringBuffer sb = new StringBuffer();
         sb.append(" INSERT INTO P_TABLE ( ");
-        sb.append(" TITLE, PEOPLE, BUDGET ) ");
-        sb.append(" VALUES ( ?, ?, ? ) ");
+        sb.append(" TITLE, PEOPLE, BUDGET, STARTDAY, ENDDAY ) ");
+        sb.append(" VALUES ( ?, ?, ?, ?, ? ) ");
 
         db.execSQL(sb.toString(),
                 new Object[]{
                         plan.getTitle(),
                         plan.getPeople(),
-                        plan.getBudget()});
+                        plan.getBudget(),
+                        plan.getStartDate(),
+                        plan.getEndDate()});
 
         Toast.makeText(context, "Insert 완료", Toast.LENGTH_SHORT).show();
     }
@@ -108,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sb.toString(), null);
         List<Plan> plans = new ArrayList();
         Plan plan = null; // moveToNext 다음에 데이터가 있으면 true 없으면 false
-        Log.i("DB :","데이터 불러오기");
+        Log.i("DB :", "데이터 불러오기");
 
         while (cursor.moveToNext()) {
             plan = new Plan();
