@@ -133,7 +133,7 @@ public class MakePlan extends AppCompatActivity{
                         intent.putExtra("PlanName", editPlanName.getText().toString());
                         intent.putExtra("Budget", editBudget.getText().toString());
                         intent.putExtra("People", editPeople.getValue());
-                        insertDB(editPlanName.getText().toString(), editBudget.getText().toString(), editPeople.getValue());
+                        insertDB(editPlanName.getText().toString(), Integer.parseInt(editBudget.getText().toString()), editPeople.getValue());
                         Log.i("gaza","ㅎㅇ");
                         startActivity(intent);
                     }
@@ -153,7 +153,7 @@ public class MakePlan extends AppCompatActivity{
 
     }
 
-    private void insertDB(String title, String budget, int people){
+    private void insertDB(String title, int budget, int people){
         Plan plan = new Plan(title, budget, people);
 
 
