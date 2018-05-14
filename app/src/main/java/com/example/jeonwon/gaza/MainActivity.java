@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected static DBHelper dbHelper;
     private static final int REQESTCODE = 832;
 
-    private Button button, buttonMap;
+    private Button button;
     //private String planName[] = {"China"};
     private ListView listView;
     private ListViewPlanAdapter listViewPlanAdapter;
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         //툴바 설정
 
         button = (Button) findViewById(R.id.buttonMakePlan);
-        buttonMap = (Button) findViewById(R.id.buttonMap);
 
         //My Plan List in Main
         listViewPlanAdapter = new ListViewPlanAdapter();
