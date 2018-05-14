@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:background="#70d1b4"
         android:text="Map"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/buttonMakePlan"
         app:layout_constraintEnd_toStartOf="@+id/buttonMakePlan"
         app:layout_constraintHorizontal_bias="1.0"

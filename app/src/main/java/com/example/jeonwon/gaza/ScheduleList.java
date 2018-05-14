@@ -17,6 +17,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,7 +32,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  */
 
 public class ScheduleList extends AppCompatActivity {
-
+    private static final int REQESTCODE = 377;
     //며칠짜리 여행인지 선택하면 생기는 클래스
     int pos;
     String result;
@@ -161,6 +165,26 @@ public class ScheduleList extends AppCompatActivity {
                 }
             });
 
+            map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+                    try {
+//                        Intent intent = intentBuilder.build(ScheduleList.this);
+                        Intent intent = new Intent(ScheduleList.this, MapsActivity.class);
+                        startActivityForResult(intent, REQESTCODE);
+                    }
+                    catch (Exception e1){
+                        e1.printStackTrace();
+                    }
+//                    } catch (GooglePlayServicesNotAvailableException e1) {
+//                        e1.printStackTrace();
+//                    } catch (GooglePlayServicesRepairableException e1) {
+//                        e1.printStackTrace();
+//                    }
+                }
+            });
+
             //버튼 리스너
             list.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,6 +247,9 @@ public class ScheduleList extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
             }
+        }
+        else if(requestCode == REQESTCODE){//맵에서 가져오는 결과
+
         }
         for (ListViewAdapter adapter:adapterArrayList) {
             ArrayList<ListViewItem> temp =adapter.getArrayList();
