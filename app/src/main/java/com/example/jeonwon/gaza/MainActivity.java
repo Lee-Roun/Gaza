@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQESTCODE = 832;
 
     private Button button;
-    //private String planName[] = {"China"};
     private ListView listView;
     private ListViewPlanAdapter listViewPlanAdapter;
     private Toolbar toolbar;

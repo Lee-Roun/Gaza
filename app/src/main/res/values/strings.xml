@@ -16,6 +16,7 @@
     <string name="MyPlan">내여행</string>
     <string name="SharedPlan">공유</string>
     <string name="Manage">설정</string>
+    <string name="Make">만들기</string>
 
     <style name="saveCheck">로그인 정보 저장</style>
 
