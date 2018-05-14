@@ -97,8 +97,8 @@ public class ListViewAdapter extends BaseAdapter {
         b = listViewItemList.get(0).getTitle();
         notifyDataSetChanged();
 
-        Log.i("d", a);
-        Log.i("d", b);
+       /* Log.i("d", a);
+        Log.i("d", b);*/
 
 
     }
@@ -128,6 +128,9 @@ public class ListViewAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
+    public ArrayList<ListViewItem> getArrayList(){
+        return this.listViewItemList;
+    }
 
 
 

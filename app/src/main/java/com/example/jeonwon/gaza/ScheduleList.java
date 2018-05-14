@@ -17,7 +17,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -31,14 +32,19 @@ public class ScheduleList extends AppCompatActivity {
     //며칠짜리 여행인지 선택하면 생기는 클래스
     int pos;
     String result;
-    private int a;
+   // private int a;
     LinearLayout layout;
-    Intent intentPop,intentMake, adapterIntent;
+    Intent intentPop,intentMake, intentDetail;
     ListView temp; //임시 어댑터
     Button buttonOK;
 
     TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
     ListViewItem listItem; // 세부창 넘어갈때 아이템 하나 저장 변수
+
+    int usedmoney;
+
+    String a1,b,c,d,e;
+    private ArrayList<ListViewAdapter> adapterArrayList = new ArrayList<ListViewAdapter>();
 
     //어뎁터 컬랙션
 
@@ -47,7 +53,7 @@ public class ScheduleList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedulelist);
 
-        adapterIntent = new Intent(getApplicationContext(), ScheduleDetail.class);
+        intentDetail = new Intent(getApplicationContext(), ScheduleDetail.class);
         intentPop=new Intent(getApplicationContext(),Spentmoney_popup.class);
 
         textViewBudget = (TextView)findViewById(R.id.textBudget);
@@ -57,7 +63,7 @@ public class ScheduleList extends AppCompatActivity {
         buttonOK = (Button)findViewById(R.id.buttonOK);
 
         layout=(LinearLayout)findViewById(R.id.layout);
-//        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
+//        textViewBudget.setText(intentDetail.getExtras().getString("Budget"));
 
 
         intentMake=getIntent();
@@ -84,10 +90,10 @@ public class ScheduleList extends AppCompatActivity {
             final ListViewAdapter adapter;
             adapter=new ListViewAdapter(this);
 
-
             listView.setAdapter(adapter);
 
             listView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT,WRAP_CONTENT));
+
 
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {//롱클릭
                 @Override
@@ -111,17 +117,18 @@ public class ScheduleList extends AppCompatActivity {
 //                    ListViewAdapter Atemp = (ListViewAdapter) temp.getAdapter();
                     listItem = (ListViewItem) Atemp.getItem(position); //postioion 위치의 아이템 가져옴
 
-                    adapterIntent.putExtra("place", listItem.getTitle().toString());
-                    adapterIntent.putExtra("time", listItem.gettime().toString());
-                    adapterIntent.putExtra("budget", listItem.getBudget().toString());
-                    adapterIntent.putExtra("spentmoney", listItem.getSpentMoney().toString());
-                    adapterIntent.putExtra("memo", listItem.getMemo());
-                    startActivityForResult(adapterIntent, 2);
+                    intentDetail.putExtra("place", listItem.getTitle().toString());
+                    intentDetail.putExtra("time", listItem.gettime().toString());
+                    intentDetail.putExtra("budget", listItem.getBudget().toString());
+                    intentDetail.putExtra("spentmoney", listItem.getSpentMoney().toString());
+                    intentDetail.putExtra("memo", listItem.getMemo());
+                    startActivityForResult(intentDetail, 2);
 
                 }
             });
 
             layout.addView(listView);
+            adapterArrayList.add(adapter);
 
             LinearLayout btnLayout=new LinearLayout(this);
             btnLayout.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT,WRAP_CONTENT));
@@ -136,6 +143,8 @@ public class ScheduleList extends AppCompatActivity {
             list.setTextSize(20);
             list.setLayoutParams(params );
             btnLayout.addView(list);
+
+
 
             Button map=new Button(this);
             map.setText("지도");
@@ -156,7 +165,7 @@ public class ScheduleList extends AppCompatActivity {
             list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    adapter.addItem(null,Integer.toString(a++),"d","예산","");
+                    adapter.addItem(null,a1,b,c,d);
                     setListViewHeightBasedOnChildren(listView);
                     adapter.notifyDataSetChanged();
                 }
@@ -188,26 +197,43 @@ public class ScheduleList extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ListViewAdapter adapter= (ListViewAdapter) temp.getAdapter();
+
+
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                ListViewAdapter adapter= (ListViewAdapter) temp.getAdapter();
+
                 //데이터 받기
                 result = data.getStringExtra("spentMoney");
-                textViewUsedMoney.setText(result);
+             //   textViewUsedMoney.setText(result);
                 adapter.setSpnetMoney(pos, result);
             }
         }else if(requestCode == 2){
+
+
             if(resultCode == RESULT_OK){
+                ListViewAdapter adapter= (ListViewAdapter) temp.getAdapter();
 
                 listItem.setTitle(data.getStringExtra("place"));
                 listItem.settime(data.getStringExtra("time"));
                 listItem.setBudget(data.getStringExtra("budget"));
                 listItem.setSpentMoney(data.getStringExtra("spentmoney"));
                 listItem.setMemo(data.getStringExtra("memo"));
-                adapter.notifyDataSetChanged();
 
+                adapter.notifyDataSetChanged();
 
             }
         }
+        for (ListViewAdapter adapter:adapterArrayList) {
+            ArrayList<ListViewItem> temp =adapter.getArrayList();
+            for (ListViewItem tempItem :temp) {
+                try{
+                    usedmoney+=Integer.parseInt(tempItem.getSpentMoney());
+                }
+                catch(Exception e){}
+            }
+        }
+        textViewUsedMoney.setText(Integer.toString(usedmoney));
+
     }
 }
