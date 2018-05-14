@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // String 보다 StringBuffer가 Query 만들기 편하다.
         StringBuffer createSQL1 = new StringBuffer();
         createSQL1.append(" CREATE TABLE P_TABLE ( ");
-        createSQL1.append(" PID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+        createSQL1.append(" PID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         createSQL1.append(" TITLE TEXT, ");
         createSQL1.append(" PEOPLE INTEGER, ");
         createSQL1.append(" BUDGET INTEGER, ");
@@ -41,15 +41,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         StringBuffer createSQL2 = new StringBuffer();
         createSQL2.append(" CREATE TABLE L_TABLE ( ");
-        createSQL2.append(" LID INTEGER AUTOINCREMENT, ");
-        createSQL2.append(" NDAY INTEGER PRIMARY KEY, ");
-        createSQL2.append(" NLIST INTEGER PRIMARY KEY, ");
+        createSQL2.append(" LID INTEGER NOT NULL, ");
+        createSQL2.append(" NDAY INTEGER NOT NULL, ");
+        createSQL2.append(" NLIST INTEGER NOT NULL, ");
         createSQL2.append(" LOCATION TEXT, ");
         createSQL2.append(" TIME DATE, ");
         createSQL2.append(" SPENTMONEY INTEGER, ");
         createSQL2.append(" MEMO TEXT, ");
         createSQL2.append(" LISTBUDGET INTEGER, ");
-        createSQL2.append(" FOREIGN KEY(LID) REFERENCES PLAN_TABLE(PID) ON DELETE CASCADE ) ");
+        createSQL2.append(" X TEXT, ");
+        createSQL2.append(" Y TEXT, ");
+        createSQL2.append(" PRIMARY KEY(NDAY, NLIST), FOREIGN KEY(LID) REFERENCES P_TABLE(PID) ON DELETE CASCADE ) ");
 
 
 
