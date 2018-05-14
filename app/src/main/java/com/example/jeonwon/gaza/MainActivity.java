@@ -1,5 +1,6 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     protected static DBHelper dbHelper;
+    private static final int REQESTCODE = 832;
 
     private Button button, buttonMap;
     //private String planName[] = {"China"};
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MakePlan.class);
-                startActivity(intent);
+                startActivityForResult(intent,REQESTCODE);
             }
         });
 
@@ -158,7 +160,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQESTCODE){
+            if(resultCode == Activity.RESULT_OK){
+                plan = dbHelper.getAllPlanData();
 
+            }
+        }
 
     }
 

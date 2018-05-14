@@ -1,5 +1,6 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -26,6 +27,8 @@ import java.util.GregorianCalendar;
 
 
 public class MakePlan extends AppCompatActivity{
+
+    private static final int REQUEST_CODE = 188;
 
     int sYear,sMonth,sDay; //여행 출발일 날짜정보 저장할 변수
     int eYear,eMonth,eDay; //여행 마지막일 날짜정보 저장할 변수
@@ -135,7 +138,7 @@ public class MakePlan extends AppCompatActivity{
                         intent.putExtra("People", editPeople.getValue());
                         insertDB(editPlanName.getText().toString(), Integer.parseInt(editBudget.getText().toString()), editPeople.getValue());
                         Log.i("gaza","ㅎㅇ");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQUEST_CODE);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -153,12 +156,22 @@ public class MakePlan extends AppCompatActivity{
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE){
+            if(resultCode== Activity.RESULT_OK){
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        }
+    }
+
     private void insertDB(String title, int budget, int people){
         Plan plan = new Plan(title, budget, people);
 
-
         MainActivity.dbHelper.addPlan(plan);
-
     }
 
 }

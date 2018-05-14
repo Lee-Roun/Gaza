@@ -8,6 +8,12 @@
     android:weightSum="10">
 
 
+    <Button
+        android:id="@+id/buttonOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="일정 완료" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -22,6 +28,7 @@
             android:orientation="vertical">
 
         </LinearLayout>
+
     </ScrollView>
 
     <LinearLayout

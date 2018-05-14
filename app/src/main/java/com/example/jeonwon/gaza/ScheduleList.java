@@ -1,5 +1,6 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class ScheduleList extends AppCompatActivity {
     LinearLayout layout;
     Intent intentPop,intentMake, adapterIntent;
     ListView temp; //임시 어댑터
+    Button buttonOK;
 
     TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
     ListViewItem listItem; // 세부창 넘어갈때 아이템 하나 저장 변수
@@ -51,6 +53,8 @@ public class ScheduleList extends AppCompatActivity {
         textViewBudget = (TextView)findViewById(R.id.textBudget);
         textViewUsedMoney = (TextView)findViewById(R.id.textUsedMoney);
         textViewResultMoney = (TextView)findViewById(R.id.textRestMoney);
+
+        buttonOK = (Button)findViewById(R.id.buttonOK);
 
         layout=(LinearLayout)findViewById(R.id.layout);
 //        textViewBudget.setText(adapterIntent.getExtras().getString("Budget"));
@@ -138,6 +142,15 @@ public class ScheduleList extends AppCompatActivity {
             map.setTextSize(20);
             map.setLayoutParams(params );
             btnLayout.addView(map);
+
+            buttonOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
+            });
 
             //버튼 리스너
             list.setOnClickListener(new View.OnClickListener() {
