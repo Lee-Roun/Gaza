@@ -77,9 +77,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void deletePlan(Plan plan) {
         SQLiteDatabase db = getWritableDatabase();
-
         db.delete("P_TABLE", "PID =" + plan.getPid(), null);
-
     }
 
     public void addPlan(Plan plan) {
@@ -104,6 +102,31 @@ public class DBHelper extends SQLiteOpenHelper {
     public List getAllPlanData() {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM P_TABLE");
+
+        // 읽기 전용 DB 객체를 만든다.
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        List<Plan> plans = new ArrayList();
+        Plan plan = null; // moveToNext 다음에 데이터가 있으면 true 없으면 false
+        Log.i("DB :", "데이터 불러오기");
+
+        while (cursor.moveToNext()) {
+            plan = new Plan();
+            plan.setPid(cursor.getInt(0));
+            plan.setTitle(cursor.getString(1));
+            plan.setPeople(cursor.getInt(2));
+            plan.setBudget(cursor.getInt(3));
+            plan.setStartDate(cursor.getString(4));
+            plan.setEndDate(cursor.getString(5));
+            plans.add(plan);
+        }
+
+        return plans;
+    }
+    public List getPlanData(String Title) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM P_TABLE WHERE TITLE='"+Title+"'");
 
         // 읽기 전용 DB 객체를 만든다.
         SQLiteDatabase db = getReadableDatabase();

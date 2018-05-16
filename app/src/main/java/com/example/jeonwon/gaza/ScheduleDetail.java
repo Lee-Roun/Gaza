@@ -40,8 +40,8 @@ public class ScheduleDetail extends AppCompatActivity {
         editMemo = findViewById(R.id.editMemo);
         button = findViewById(R.id.btnOkdetail);
 
-        editLocation.setText(intent.getStringExtra("place"));
-        editTime.setText(intent.getStringExtra("time"));
+        editLocation.setText(intent.getStringExtra("title"));
+        editTime.setText(intent.getStringExtra("startDate"));
         editBudget.setText(intent.getStringExtra("budget"));
         editSpentMoney.setText(intent.getStringExtra("spentmoney"));
         editMemo.setText(intent.getStringExtra("memo"));
@@ -51,14 +51,14 @@ public class ScheduleDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    intent.putExtra("place", editLocation.getText().toString());
+                    intent.putExtra("title", editLocation.getText().toString());
                 } catch (NumberFormatException e) {
-                    intent.putExtra("place", "");
+                    intent.putExtra("title", "");
                 }
 
                 //  try {
                 Log.i("d", editTime.getText().toString());
-                intent.putExtra("time", editTime.getText().toString());
+                intent.putExtra("startDate", editTime.getText().toString());
                 //     }catch (NumberFormatException e){
                 //        Log.i("에러ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ","ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
                 //        intent.putExtra("time", "");

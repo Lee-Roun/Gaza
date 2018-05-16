@@ -170,7 +170,7 @@ public class ScheduleList extends AppCompatActivity {
                 public void onClick(View view) {
                     PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
                     try {
-//                        Intent intent = intentBuilder.build(ScheduleList.this);
+                        //Intent intent = intentBuilder.build(ScheduleList.this);
                         Intent intent = new Intent(ScheduleList.this, MapsActivity.class);
                         startActivityForResult(intent, REQESTCODE);
                     }
@@ -184,7 +184,6 @@ public class ScheduleList extends AppCompatActivity {
 //                    }
                 }
             });
-
             //버튼 리스너
             list.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected static DBHelper dbHelper;
     private static final int REQESTCODE = 832;
+    private static final int REQUESTCODE = 711;
 
     private Button button;
     private ListView listView;
@@ -78,7 +79,15 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), position + 1 + "번째 리스트가 클릭됨", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), ScheduleDetail.class);
+                intent.putExtra("title", plan.get(position).getTitle());
+                intent.putExtra("startDate", plan.get(position).getStartDate());
+                intent.putExtra("endDate", plan.get(position).getEndDate());
+                intent.putExtra("people", plan.get(position).getPeople());
+                intent.putExtra("budget", plan.get(position).getBudget());
+                intent.putExtra("pid", plan.get(position).getPid());
+                startActivityForResult(intent, REQUESTCODE);
+                Toast.makeText(getApplicationContext(), ""+plan.get(position).getPid(), Toast.LENGTH_SHORT).show();
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
