@@ -28,20 +28,29 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class ScheduleList extends AppCompatActivity {
 
+    public static boolean isSet=false;
+
     //며칠짜리 여행인지 선택하면 생기는 클래스
     int pos;
-    String result;
-   // private int a;
-    LinearLayout layout;
-    Intent intentPop,intentMake, intentDetail;
-    ListView temp; //임시 어댑터
-
-    TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
-    ListViewItem listItem; // 세부창 넘어갈때 아이템 하나 저장 변수
-
     int usedmoney;
+    long tripPeriod;
+    String result;
+    String budget;
+    String strPlace,strBudget,strTime,strSpentMoney;
+   // private int a;
+    Intent intentPop,intentMake, intentDetail;
+    TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
+    LinearLayout layout;
+    ListView temp; //임시 어댑터
+    ListViewItem listItem,tempItem; // 세부창 넘어갈때 아이템 하나 저장 변수
 
-    String a1,b,c,d,e;
+    ListView tempListView;
+    ListViewAdapter tempAdapter;
+
+
+
+
+
     private ArrayList<ListViewAdapter> adapterArrayList = new ArrayList<ListViewAdapter>();
 
     //어뎁터 컬랙션
@@ -63,9 +72,7 @@ public class ScheduleList extends AppCompatActivity {
 
 
         intentMake=getIntent();
-        long tripPeriod;
         tripPeriod=intentMake.getLongExtra("TripPeriod",0);
-        String budget;
         budget=intentMake.getStringExtra("Budget");
         textViewBudget.setText("총 예산\n"+budget);
 
@@ -152,9 +159,14 @@ public class ScheduleList extends AppCompatActivity {
             list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    adapter.addItem(null,a1,b,c,d);
-                    setListViewHeightBasedOnChildren(listView);
-                    adapter.notifyDataSetChanged();
+                    intentDetail.putExtra("place", "");
+                    intentDetail.putExtra("time", "");
+                    intentDetail.putExtra("budget", "");
+                    intentDetail.putExtra("spentmoney", "");
+                    intentDetail.putExtra("memo", "");
+                    startActivityForResult(intentDetail,3);
+                    tempAdapter=adapter;
+                    tempListView=listView;
                 }
             });
         }
@@ -210,7 +222,19 @@ public class ScheduleList extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
             }
+        }else if(requestCode==3){
+            if(resultCode==RESULT_OK){
+                strPlace=data.getStringExtra("place");
+                strTime=data.getStringExtra("time");
+                strBudget=data.getStringExtra("budget");
+                strSpentMoney=data.getStringExtra("spentmoney");
+                tempAdapter.addItem(null, strPlace, strTime, strBudget, strSpentMoney);
+                tempAdapter.notifyDataSetChanged();
+                setListViewHeightBasedOnChildren(tempListView);
+            }
         }
+
+        usedmoney=0;
         for (ListViewAdapter adapter:adapterArrayList) {
             ArrayList<ListViewItem> temp =adapter.getArrayList();
             for (ListViewItem tempItem :temp) {
@@ -220,7 +244,14 @@ public class ScheduleList extends AppCompatActivity {
                 catch(Exception e){}
             }
         }
-        textViewUsedMoney.setText(Integer.toString(usedmoney));
-
+        textViewUsedMoney.setText("사용한 돈\n"+usedmoney);
+        int rest=Integer.parseInt(budget)-usedmoney;
+        if(rest<0){
+            textViewResultMoney.setTextColor(Color.RED);
+        }
+        else{
+            textViewResultMoney.setTextColor(Color.BLACK);
+        }
+        textViewResultMoney.setText("남은 돈\n"+rest);
     }
 }

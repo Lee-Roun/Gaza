@@ -118,7 +118,7 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String title, String desc, String budget, String spentMoney) {
+    public ListViewItem addItem(Drawable icon, String title, String desc, String budget, String spentMoney) {
 
         ListViewItem item = new ListViewItem();
         item.setTitle(title);
@@ -126,6 +126,7 @@ public class ListViewAdapter extends BaseAdapter {
         item.setBudget(budget);
         item.setSpentMoney(spentMoney);
         listViewItemList.add(item);
+        return  item;
     }
 
     public ArrayList<ListViewItem> getArrayList(){

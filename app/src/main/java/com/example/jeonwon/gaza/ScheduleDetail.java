@@ -50,7 +50,7 @@ public class ScheduleDetail extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
+               /* try {
                     intent.putExtra("place", editLocation.getText().toString());
                 } catch (NumberFormatException e) {
                     intent.putExtra("place", "");
@@ -80,7 +80,12 @@ public class ScheduleDetail extends AppCompatActivity {
                     intent.putExtra("memo", editMemo.getText().toString());
                 } catch (Exception e) {
                     intent.putExtra("memo", "");
-                }
+                }*/
+                intent.putExtra("place",editLocation.getText().toString());
+                intent.putExtra("time",editTime.getText().toString());
+                intent.putExtra("budget",editBudget.getText().toString());
+                intent.putExtra("spentmoney",editSpentMoney.getText().toString());
+
 
                 setResult(RESULT_OK, intent);
                 finish();

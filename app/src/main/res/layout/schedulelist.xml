@@ -37,7 +37,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="총 예산"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/textUsedMoney"
@@ -46,7 +47,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="사용한 돈"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/textRestMoney"
@@ -55,7 +57,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="남은 돈"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="#000000"/>
     </LinearLayout>
 
 
