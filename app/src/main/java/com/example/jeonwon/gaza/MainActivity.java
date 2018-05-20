@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import java.util.List;
 
 
@@ -187,6 +189,20 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menuProfile:
                 //프로필 눌렀을때
                 Toast.makeText(this, "메뉴 프로필", Toast.LENGTH_SHORT).show();
+                PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+                try {
+                    Intent intent = intentBuilder.build(MainActivity.this);
+                    //Intent intent = new Intent(ScheduleList.this, MapsActivity.class);
+                    startActivityForResult(intent, REQESTCODE);
+                }
+                catch (Exception e1){
+                    e1.printStackTrace();
+                }
+//                    } catch (GooglePlayServicesNotAvailableException e1) {
+//                        e1.printStackTrace();
+//                    } catch (GooglePlayServicesRepairableException e1) {
+//                        e1.printStackTrace();
+//                    }
                 break;
             case R.id.menuNotice:
                 //공지사항 눌렀을때
