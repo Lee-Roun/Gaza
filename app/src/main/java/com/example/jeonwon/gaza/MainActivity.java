@@ -19,6 +19,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,8 +34,13 @@ import java.util.List;
 
 //구글맵 API 키
 //AIzaSyC-PiJhaeOQcu288CgZD8Dt-xo1idhWViQ
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
+    public class Point implements Serializable{
+        public double x;
+        public double y;
+    }
+    public static ArrayList<LatLng> arrayPoint = new ArrayList<>();
     protected static DBHelper dbHelper;
     private static final int REQESTCODE = 832;
     private static final int REQUESTCODE = 711;
@@ -39,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
     private ListViewPlanAdapter listViewPlanAdapter;
     private Toolbar toolbar;
     private List<Plan> plan;
+
+    Place place;
+    CharSequence name;
+    CharSequence address;
+    LatLng latlng;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +187,16 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 displayPlan();
             }
+        }else if(requestCode==300 && resultCode == RESULT_OK){
+            place = PlacePicker.getPlace(this, data);
+            name = place.getName();
+            address = place.getAddress();
+            latlng = place.getLatLng();
+            arrayPoint.add(latlng);
+
+            Toast.makeText(MainActivity.this, " 장소명 : " + name + "\n주소 : " + address + "\n좌표 : " + latlng,Toast.LENGTH_LONG).show();
         }
+
 
     }
 
@@ -187,10 +214,29 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menuProfile:
                 //프로필 눌렀을때
                 Toast.makeText(this, "메뉴 프로필", Toast.LENGTH_SHORT).show();
+                PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+                try {
+                    Intent intent = intentBuilder.build(MainActivity.this);
+                    startActivityForResult(intent, 300);
+                }
+                catch (Exception e1){
+                    e1.printStackTrace();
+                }
+//                    } catch (GooglePlayServicesNotAvailableException e1) {
+//                        e1.printStackTrace();
+//                    } catch (GooglePlayServicesRepairableException e1) {
+//                        e1.printStackTrace();
+//                    }
                 break;
             case R.id.menuNotice:
                 //공지사항 눌렀을때
                 Toast.makeText(this, "메뉴 공지사항", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                intent.putExtra("point",arrayPoint);
+
+                intent.putExtra("x",name);
+               // intent.putExtra("y",arrayLng);
+                startActivity(intent);
                 break;
 
         }
@@ -198,4 +244,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -16,10 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +35,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  */
 
 public class ScheduleList extends AppCompatActivity {
+    public static ArrayList<LatLng> arrayPoint = new ArrayList<>();
     private static final int REQESTCODE = 377;
     //며칠짜리 여행인지 선택하면 생기는 클래스
     int pos;
@@ -248,7 +252,11 @@ public class ScheduleList extends AppCompatActivity {
             }
         }
         else if(requestCode == REQESTCODE){//맵에서 가져오는 결과
-
+            final Place place = PlacePicker.getPlace(this, data);
+            final CharSequence name = place.getName();
+            final CharSequence address = place.getAddress();
+            final LatLng latlng = place.getLatLng();
+            Toast.makeText(ScheduleList.this, " 장소명 : " + name + "\n주소 : " + address + "\n좌표 : " + latlng,Toast.LENGTH_LONG).show();
         }
         for (ListViewAdapter adapter:adapterArrayList) {
             ArrayList<ListViewItem> temp =adapter.getArrayList();
