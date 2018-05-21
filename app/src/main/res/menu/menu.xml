@@ -5,7 +5,6 @@
     <item
         android:id="@+id/menuProfile"
         android:title="프로필" />
-    <item android:title="----" />
     <item
         android:id="@+id/menuNotice"
         android:title="공지사항" />

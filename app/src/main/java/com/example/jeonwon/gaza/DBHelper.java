@@ -34,8 +34,8 @@ public class DBHelper extends SQLiteOpenHelper {
         createSQL1.append(" TITLE TEXT, ");
         createSQL1.append(" PEOPLE INTEGER, ");
         createSQL1.append(" BUDGET INTEGER, ");
-        createSQL1.append(" START TEXT, ");
-        createSQL1.append(" END TEXT ) ");
+        createSQL1.append(" STARTDAY TEXT, ");
+        createSQL1.append(" ENDDAY TEXT ) ");
         //PID |   TITLE   |   PEOPLE    |   BUDGET  |   START   |   END
         //----------------------------------------------------------------//DB 테이블 모양
 
@@ -45,14 +45,14 @@ public class DBHelper extends SQLiteOpenHelper {
         createSQL2.append(" NDAY INTEGER NOT NULL, ");
         createSQL2.append(" NLIST INTEGER NOT NULL, ");
         createSQL2.append(" LOCATION TEXT, ");
-        createSQL2.append(" TIME DATE, ");
+        createSQL2.append(" STARTTIME DATE, ");
+        createSQL2.append(" ENDTIME DATE, ");
         createSQL2.append(" SPENTMONEY INTEGER, ");
         createSQL2.append(" MEMO TEXT, ");
         createSQL2.append(" LISTBUDGET INTEGER, ");
         createSQL2.append(" X TEXT, ");
         createSQL2.append(" Y TEXT, ");
         createSQL2.append(" PRIMARY KEY(NDAY, NLIST), FOREIGN KEY(LID) REFERENCES P_TABLE(PID) ON DELETE CASCADE ) ");
-
 
 
         //LID* |   NDAY*   |   NLIST*    |   LOCATION  |   TIME  |   LISTBUDGET  |   SPENTMONEY  |    MEMO   |
@@ -62,24 +62,22 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(createSQL1.toString());
         sqLiteDatabase.execSQL(createSQL2.toString());
 
-        Toast.makeText(context, "Table 2개 생성완료", Toast.LENGTH_SHORT).show();
-        Log.i("Table 생성","Table 생성 완료함");
+//        Toast.makeText(context, "Table 2개 생성완료", Toast.LENGTH_SHORT).show();
+        Log.i("Table 생성", "Table 생성 완료함");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 //        Toast.makeText(context, "버전이 올라갔습니다.", Toast.LENGTH_SHORT).show();
-        Log.i("Upgrade","Upgrade 완료");
+        Log.i("Upgrade", "Upgrade 완료");
 
     }
 
 
-    public void deletePlan(Plan plan){
+    public void deletePlan(Plan plan) {
         SQLiteDatabase db = getWritableDatabase();
-
-        db.delete("PLAN_TABLE", "PID ="+ plan.getPid(), null);
-
+        db.delete("P_TABLE", "PID =" + plan.getPid(), null);
     }
 
     public void addPlan(Plan plan) {
@@ -87,14 +85,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         StringBuffer sb = new StringBuffer();
         sb.append(" INSERT INTO P_TABLE ( ");
-        sb.append(" TITLE, PEOPLE, BUDGET ) ");
-        sb.append(" VALUES ( ?, ?, ? ) ");
+        sb.append(" TITLE, PEOPLE, BUDGET, STARTDAY, ENDDAY ) ");
+        sb.append(" VALUES ( ?, ?, ?, ?, ? ) ");
 
         db.execSQL(sb.toString(),
                 new Object[]{
                         plan.getTitle(),
                         plan.getPeople(),
-                        plan.getBudget()});
+                        plan.getBudget(),
+                        plan.getStartDate(),
+                        plan.getEndDate()});
 
         Toast.makeText(context, "Insert 완료", Toast.LENGTH_SHORT).show();
     }
@@ -109,7 +109,32 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sb.toString(), null);
         List<Plan> plans = new ArrayList();
         Plan plan = null; // moveToNext 다음에 데이터가 있으면 true 없으면 false
-        Log.i("DB :","데이터 불러오기");
+        Log.i("DB :", "데이터 불러오기");
+
+        while (cursor.moveToNext()) {
+            plan = new Plan();
+            plan.setPid(cursor.getInt(0));
+            plan.setTitle(cursor.getString(1));
+            plan.setPeople(cursor.getInt(2));
+            plan.setBudget(cursor.getInt(3));
+            plan.setStartDate(cursor.getString(4));
+            plan.setEndDate(cursor.getString(5));
+            plans.add(plan);
+        }
+
+        return plans;
+    }
+    public List getPlanData(String Title) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM P_TABLE WHERE TITLE='"+Title+"'");
+
+        // 읽기 전용 DB 객체를 만든다.
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        List<Plan> plans = new ArrayList();
+        Plan plan = null; // moveToNext 다음에 데이터가 있으면 true 없으면 false
+        Log.i("DB :", "데이터 불러오기");
 
         while (cursor.moveToNext()) {
             plan = new Plan();

@@ -1,5 +1,6 @@
 package com.example.jeonwon.gaza;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,9 +35,14 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  */
 
 public class ScheduleList extends AppCompatActivity {
+<<<<<<< HEAD
 
     public static boolean isSet=false;
 
+=======
+    public static ArrayList<LatLng> arrayPoint = new ArrayList<>();
+    private static final int REQESTCODE = 377;
+>>>>>>> 86e343cf0ec35de61beaf55c948f310d267e7261
     //며칠짜리 여행인지 선택하면 생기는 클래스
     int pos;
     int usedmoney;
@@ -42,12 +55,16 @@ public class ScheduleList extends AppCompatActivity {
     TextView textViewBudget, textViewUsedMoney, textViewResultMoney;
     LinearLayout layout;
     ListView temp; //임시 어댑터
+<<<<<<< HEAD
     ListViewItem listItem,tempItem; // 세부창 넘어갈때 아이템 하나 저장 변수
 
     ListView tempListView;
     ListViewAdapter tempAdapter;
 
 
+=======
+    Button buttonOK;
+>>>>>>> 86e343cf0ec35de61beaf55c948f310d267e7261
 
 
 
@@ -66,6 +83,8 @@ public class ScheduleList extends AppCompatActivity {
         textViewBudget = (TextView)findViewById(R.id.textBudget);
         textViewUsedMoney = (TextView)findViewById(R.id.textUsedMoney);
         textViewResultMoney = (TextView)findViewById(R.id.textRestMoney);
+
+        buttonOK = (Button)findViewById(R.id.buttonOK);
 
         layout=(LinearLayout)findViewById(R.id.layout);
 //        textViewBudget.setText(intentDetail.getExtras().getString("Budget"));
@@ -155,6 +174,34 @@ public class ScheduleList extends AppCompatActivity {
             map.setLayoutParams(params );
             btnLayout.addView(map);
 
+            buttonOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
+            });
+
+            map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+                    try {
+                        //Intent intent = intentBuilder.build(ScheduleList.this);
+                        Intent intent = new Intent(ScheduleList.this, MapsActivity.class);
+                        startActivityForResult(intent, REQESTCODE);
+                    }
+                    catch (Exception e1){
+                        e1.printStackTrace();
+                    }
+//                    } catch (GooglePlayServicesNotAvailableException e1) {
+//                        e1.printStackTrace();
+//                    } catch (GooglePlayServicesRepairableException e1) {
+//                        e1.printStackTrace();
+//                    }
+                }
+            });
             //버튼 리스너
             list.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -235,8 +282,18 @@ public class ScheduleList extends AppCompatActivity {
 
             }
         }
+<<<<<<< HEAD
 
         usedmoney=0;
+=======
+        else if(requestCode == REQESTCODE){//맵에서 가져오는 결과
+            final Place place = PlacePicker.getPlace(this, data);
+            final CharSequence name = place.getName();
+            final CharSequence address = place.getAddress();
+            final LatLng latlng = place.getLatLng();
+            Toast.makeText(ScheduleList.this, " 장소명 : " + name + "\n주소 : " + address + "\n좌표 : " + latlng,Toast.LENGTH_LONG).show();
+        }
+>>>>>>> 86e343cf0ec35de61beaf55c948f310d267e7261
         for (ListViewAdapter adapter:adapterArrayList) {
             ArrayList<ListViewItem> temp =adapter.getArrayList();
             for (ListViewItem tempItem :temp) {
