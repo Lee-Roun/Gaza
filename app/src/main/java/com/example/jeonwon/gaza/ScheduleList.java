@@ -184,6 +184,7 @@ public class ScheduleList extends AppCompatActivity {
 
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
+
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
             totalHeight += listItem.getMeasuredHeight();
         }
@@ -229,8 +230,9 @@ public class ScheduleList extends AppCompatActivity {
                 strBudget=data.getStringExtra("budget");
                 strSpentMoney=data.getStringExtra("spentmoney");
                 tempAdapter.addItem(null, strPlace, strTime, strBudget, strSpentMoney);
-                tempAdapter.notifyDataSetChanged();
                 setListViewHeightBasedOnChildren(tempListView);
+                tempAdapter.notifyDataSetChanged();
+
             }
         }
 
